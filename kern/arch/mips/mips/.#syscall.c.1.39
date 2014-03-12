@@ -1,0 +1,679 @@
+#include <types.h>
+#include <kern/errno.h>
+#include <lib.h>
+#include <machine/pcb.h>
+#include <machine/spl.h>
+
+#include <machine/trapframe.h>
+#include <kern/callno.h>
+#include <syscall.h>
+#include "opt-A2.h"
+
+#if OPT_A2
+#include <thread.h>
+#include <curthread.h>
+#include <kern/unistd.h>
+#include <filemanager.h>
+#include <pidmanager.h>
+#include <processhandler.h>
+#include <filedescriptor.h>
+#include <uio.h>
+#include <vnode.h>
+#include <synch.h>
+#include <vfs.h>
+#include <pidmgr.h>
+#include <addrspace.h>
+#include <test.h>
+#endif
+
+/*
+ * System call handler.
+ *
+ * A pointer to the trapframe created during exception entry (in
+ * exception.S) is passed in.
+ *
+ * The calling conventions for syscalls are as follows: Like ordinary
+ * function calls, the first 4 32-bit arguments are passed in the 4
+ * argument registers a0-a3. In addition, the system call number is
+ * passed in the v0 register.
+ *
+ * On successful return, the return value is passed back in the v0
+ * register, like an ordinary function call, and the a3 register is
+ * also set to 0 to indicate success.
+ *
+ * On an error return, the error code is passed back in the v0
+ * register, and the a3 register is set to 1 to indicate failure.
+ * (Userlevel code takes care of storing the error code in errno and
+ * returning the value -1 from the actual userlevel syscall function.
+ * See src/lib/libc/syscalls.S and related files.)
+ *
+ * Upon syscall return the program counter stored in the trapframe
+ * must be incremented by one instruction; otherwise the exception
+ * return code will restart the "syscall" instruction and the system
+ * call will repeat forever.
+ *
+ * Since none of the OS/161 system calls have more than 4 arguments,
+ * there should be no need to fetch additional arguments from the
+ * user-level stack.
+ *
+ * Watch out: if you make system calls that have 64-bit quantities as
+ * arguments, they will get passed in pairs of registers, and not
+ * necessarily in the way you expect. We recommend you don't do it.
+ * (In fact, we recommend you don't use 64-bit quantities at all. See
+ * arch/mips/include/types.h.)
+ */
+struct semaphore *sem_fork;
+
+void print_function_dbprint(const char *str)
+{
+	kprintf("%s\n", str);
+}
+
+void
+mips_syscall(struct trapframe *tf)
+{
+	int callno;
+	int32_t retval;
+	int err;
+
+	assert(curspl==0);
+
+	callno = tf->tf_v0;
+
+	/*
+	 * Initialize retval to 0. Many of the system calls don't
+	 * really return a value, just 0 for success and -1 on
+	 * error. Since retval is the value returned on success,
+	 * initialize it to 0 by default; thus it's not necessary to
+	 * deal with it except for calls that return other values, 
+	 * like write.
+	 */
+	retval = 0;
+
+	switch (callno) {
+	    case SYS_reboot:
+			err = sys_reboot(tf->tf_a0);
+			break;
+
+#if OPT_A2
+	    case SYS_open:
+			err = sys_open((char *)tf->tf_a0, tf->tf_a1, tf->tf_a2);
+			if (err > 0)
+			{
+				retval = err;
+				err = 0;
+			}
+			break;
+
+	    case SYS_close:
+	    	err = sys_close(tf->tf_a0);
+			break;
+
+	    case SYS_read:
+	    	err = sys_read(tf->tf_a0, (void *)tf->tf_a1, tf->tf_a2);
+
+			if (err > 0)
+			{
+				retval = err;
+				err = 0;
+			}
+			break;
+
+	    case SYS_write:
+			err = sys_write(tf->tf_a0, (void *)tf->tf_a1, tf->tf_a2);
+
+			if (err > 0)
+			{
+				retval = err;
+				err = 0;
+			}
+			break;
+
+	    case SYS_fork:
+			err = sys_fork(tf);
+            
+            if (err >= 0)
+            {
+                retval = err;
+                err = 0;
+            }
+			break;
+
+	    case SYS_getpid:
+            err = sys_getpid();
+            
+            if (err > 0)
+            {
+                retval = err;
+                err = 0;
+            }
+            break;
+
+	    case SYS_waitpid:
+            err = sys_waitpid(tf->tf_a0, (int *)tf->tf_a1, (int)tf->tf_a2);
+			break;
+
+	    case SYS__exit:
+	    	sys__exit(0);
+			break;
+
+	    case SYS_execv:
+			err = sys_execv((char *)tf->tf_a0, (char **)tf->tf_a1);
+			break;
+#endif	    
+	    default:
+			kprintf("Unknown syscall %d\n", callno);
+			err = ENOSYS;
+			break;
+	}
+
+    
+	if (err < 0) {
+		/*
+		 * Return the error code. This gets converted at
+		 * userlevel to a return value of -1 and the error
+		 * code in errno.
+		 */
+		tf->tf_v0 = (-1)*(err);
+		tf->tf_a3 = 1;      /* signal an error */
+	}
+	else {
+		/* Success. */
+		tf->tf_v0 = retval;
+		tf->tf_a3 = 0;      /* signal no error */
+	}
+	
+	/*
+	 * Now, advance the program counter, to avoid restarting
+	 * the syscall over and over again.
+	 */
+	tf->tf_epc += 4;
+
+	/* Make sure the syscall code didn't forget to lower spl */
+	assert(curspl==0);
+}
+
+#if OPT_A2
+
+int sys_open(const char *filename, int flags, unsigned int mode)
+{
+    // remove warnings for unused function arguments
+    (void)mode;
+    
+	struct filedescriptor* fd;
+	struct vnode *v;
+
+	int ret = vfs_open((void *)filename, flags, &v);
+
+	// check if vfs_open was successful
+	if (ret)
+	{
+		// vfs_open returns the errno if it exists
+		return (-1)*(ret);
+	}
+
+	// configure file descriptor to add to filemanager
+	char lock_name[128];
+	strcpy(lock_name, "lock_");
+	strcat(lock_name, filename);
+	fd = filedescriptor_create(v, 0, flags, lock_name);
+
+	// add filedescriptor to filemanager
+	int file_id;
+	file_id = filemanager_add((struct filemanager *)curthread->t_fm, fd);
+
+	// return file id on success
+	return file_id;
+}
+
+int sys_close(int fd)
+{
+	int ret;
+	ret = filemanager_remove((struct filemanager *)curthread->t_fm, fd);
+
+	if (ret)
+	{
+		return (-1)*(ret);
+	}
+
+	return 0;
+}
+
+int sys_read(int fd, void *buff, size_t buflen)
+{
+	// parameters for VOP_READ
+	struct filedescriptor *file_d;
+	struct uio u;
+	int result;
+	int bytes_read;
+
+	// check if buff is valid
+	if (!buff)
+	{
+		return (-1)*(EFAULT);
+	}
+    
+    // fetch the filedescriptor from the filemanager of the curthread
+	file_d = filemanager_get((struct filemanager *)curthread->t_fm, fd);
+
+    // check if filedescriptor is valid
+	if (file_d == NULL)
+	{
+		return (-1)*(EBADF);
+	}
+
+	// make sure that the filedescriptor is not read-only
+	if (file_d->fd_mode == O_WRONLY)
+	{
+		return (-1)*(EBADF);
+    }
+
+	// configure uio
+	u.uio_iovec.iov_un.un_ubase = buff;
+	u.uio_iovec.iov_len = buflen;
+	u.uio_offset = file_d->fd_offset;
+	u.uio_resid = buflen;
+	u.uio_segflg = UIO_USERSPACE;
+	u.uio_rw = UIO_READ;
+	u.uio_space = curthread->t_vmspace;
+
+	// cache number of bytes set to be read
+	bytes_read = u.uio_resid;
+
+	// make sure mutual exclusion on the file being read
+	lock_acquire(file_d->fd_lock);
+
+	// read from file
+	result = VOP_READ(file_d->fd_vnode, &u);
+
+	lock_release(file_d->fd_lock);
+
+	// update bytes read
+	bytes_read -= u.uio_resid;
+
+	// check if end-of-file
+	if (bytes_read == 0)
+	{
+		return 0;
+	}
+    
+	// update the offset value of the filedescriptor
+	file_d->fd_offset += buflen;
+
+	// report number of bytes read
+	return buflen;
+}
+
+int sys_write(int fd, const void *buff, size_t nbytes)
+{
+	// parameters for VOP_WRITE
+	struct filedescriptor *file_d;
+	struct uio u;
+	int result;
+	int bytes_written;
+    
+	// check if buff is valid
+	if (!buff)
+	{
+		return (-1)*(EFAULT);
+	}
+    
+	// fetch the filedescriptor from the filemanager of the curthread
+	file_d = filemanager_get((struct filemanager *)curthread->t_fm, fd);
+
+	// check if filedescriptor is valid
+	if (file_d == NULL)
+	{
+		return (-1)*(EBADF);
+	}
+
+	// make sure that the filedescriptor is not read-only
+	if (file_d->fd_mode == O_RDONLY)
+	{
+		return (-1)*(EBADF);
+	}
+
+	// configure uio
+	u.uio_iovec.iov_un.un_ubase = (void *)buff;
+	u.uio_iovec.iov_len = nbytes;
+	u.uio_offset = file_d->fd_offset;
+	u.uio_resid = nbytes;
+	u.uio_segflg = UIO_SYSSPACE;
+	u.uio_rw = UIO_WRITE;
+	u.uio_space = NULL;
+
+	// cache number of bytes to write
+	bytes_written = u.uio_resid;
+
+	// make sure mutual exclusion on the file being written on
+	lock_acquire(file_d->fd_lock);
+
+	// write to file
+	result = VOP_WRITE(file_d->fd_vnode, &u);
+
+	lock_release(file_d->fd_lock);
+
+	// update bytes written
+	bytes_written -= u.uio_resid;
+
+	// check if there is no space in the filesystem
+	if (bytes_written == 0)
+	{
+		kprintf("no bytes written\n");
+		return 0;
+	}
+
+	// update the offset value of the filedescriptor
+	file_d->fd_offset += nbytes;
+
+	// report number of bytes written
+	return nbytes;
+}
+
+
+
+pid_t sys_getpid(void)
+{
+	return curthread->t_pid;
+}
+
+int sys_execv(const char *program, char *args[])
+{
+	char **args_copy;
+	struct vnode *v;
+	int argc, result, index;
+	vaddr_t stackptr, entrypoint;
+
+	// get number of arguments
+	for (argc=0; args[argc] != NULL; argc++);
+
+	// save out copy of args before current address space is scrapped
+	char *strtemp;
+	args_copy = kmalloc(argc * sizeof(char *) + 1);
+
+	for (index=0; index<argc; index++)
+	{
+		strtemp = kmalloc(sizeof(char));
+		strcpy(strtemp, args[index]);
+		args_copy[index] = strtemp;
+	}
+
+	// do parameter checks
+	if (program != args[0]) {
+		//kprintf("Mismatch: program name %s does not match first argument %s.\n", program, args[0]);
+	}
+	assert(args[argc] == NULL);
+
+	// open the program file
+	result = vfs_open((char *)program, O_RDONLY, &v);
+	if (result)
+	{
+		kprintf("open program file: %s\n", strerror(result));
+		return result;
+	}
+
+	// configure the user address space
+	curthread->t_vmspace = as_create();
+
+	if (curthread->t_vmspace==NULL)
+	{
+		vfs_close(v);
+		return ENOMEM;
+	}
+
+	as_activate(curthread->t_vmspace);
+
+	// load the elf
+	result = load_elf(v, &entrypoint);
+	if (result)
+	{
+		kprintf("load elf: %s\n", strerror(result));
+		vfs_close(v);
+		return result;
+	}
+
+	// close the program file since we're done with it
+	vfs_close(v);
+
+	// define the user stack
+	result = as_define_stack(curthread->t_vmspace, &stackptr);
+	if (result)
+	{
+		kprintf("define user stack: %s\n", strerror(result));
+		return result;
+	}
+
+	// put arguments onto user stack
+	store_program_arguments(argc, args_copy, &stackptr);
+
+	// Warp to user mode
+	md_usermode(argc, (userptr_t)stackptr, stackptr, entrypoint);
+
+	// md_usermode should not return (otherwise its an error)
+	panic("md_usermode returned\n");
+
+	return EINVAL;
+}
+void sys__exit(int exitcode)
+{
+/*
+	pid_t pid = sys_getpid();
+
+    struct processhandler *ph;
+    ph = pidmanager_get(pidmgr, pid);
+
+    //kprintf("HERE1\n");
+    assert(ph != NULL);
+    //kprintf("HERE2\n");
+
+    lock_acquire(ph->ph_exitlock);
+
+	kprintf("exiting here on this pid %d with exitcode %d\n", pid, exitcode);
+    ph->ph_status = PH_EXITED;
+    ph->ph_exitcode = exitcode;
+
+    // wakes up all threads sleeping on the exit lock
+    cv_broadcast(ph->ph_exitcv, ph->ph_exitlock);
+    lock_release(ph->ph_exitlock);
+*/
+    // exit the thread
+	//int s = splhigh();
+	//kprintf ("exiting: %d\n", curthread->t_pid);
+	//splx(s);
+    thread_exit();
+
+    return;
+}
+
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/*******************************                *************************************/
+/*******************************                *************************************/
+/*******************************   INCOMPLETE   *************************************/
+/*******************************                *************************************/
+/*******************************                *************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+/*******************************                *************************************/
+/*******************************   KRISTA POON  *************************************/
+/*******************************   DANIEL KIM   *************************************/
+/*******************************   KEVIN CHEN   *************************************/
+/*******************************                *************************************/
+/************************************************************************************/
+/************************************************************************************/
+/************************************************************************************/
+void
+md_forkentry(struct trapframe *tf)
+{
+	/*
+	 * This function is provided as a reminder. You need to write
+	 * both it and the code that calls it.
+	 *
+	 * Thus, you can trash it and do things another way if you prefer.
+	 */
+
+	/*
+	 * This function is used to copy the trap frame of the parent process into
+	 * the the child's and return the child process to user mode
+	 */
+	//int spl;
+
+	// disable interrupts
+	//spl = splhigh();
+
+	//new trap frame for the child
+	struct trapframe newtf;
+
+	// copy the trap frame
+	memcpy (&newtf, tf, sizeof(struct trapframe));
+
+	newtf.tf_v0 = 0; 	// return value of the child process should be 0
+	newtf.tf_epc += 4; 	// advance the PC to avoid redo of the syscall
+	newtf.tf_a3 = 0; 	// indicate that there are no errors
+
+	curthread->t_vmspace = (struct addrspace*)tf->tf_a0;
+	//memcpy (curthread->t_vmspace, (struct addrspace*) tf->tf_a0, sizeof(struct addrspace*));
+	//kprintf ("BEOFRE");
+	//struct addrspace *temp = (struct addrspace*) tf->tf_a0;
+    //as_copy(curthread->t_vmspace, &temp);
+    //kprintf ("TESTING HERE");
+	as_activate(curthread->t_vmspace);
+	// re-enable interrupts
+	//splx(spl);
+	kfree (tf);
+	V(sem_fork);
+	// Warp to user mode
+	//kprintf ("md_forkentry childpid: %d\n", curthread->t_pid);
+	mips_usermode(&newtf);
+}
+
+pid_t sys_fork(struct trapframe *tf)
+{
+	//print_function_dbprint("sys_fork");
+	sem_fork = sem_create ("sem_fork", 1);
+
+    struct thread *child_thread;
+
+	struct addrspace *childaddrspace;
+	as_copy(curthread->t_vmspace, &childaddrspace);
+
+	struct trapframe *child_tf = kmalloc(sizeof(struct trapframe));
+
+    if (child_tf == NULL)
+    {
+    	kfree (child_tf);
+    	return (-1)*(ENOMEM);
+    }
+
+    memcpy(child_tf, tf, sizeof(struct trapframe));
+
+	child_tf->tf_a0 = (u_int32_t) childaddrspace; // need this to pass to md_forkentry, we know that fork() takes 0 parameters, so we can use a0
+
+    thread_fork(curthread->t_name, child_tf, 0, (void *)md_forkentry, &child_thread);
+
+    // copy the filemanager of the parent to the child
+	// NOTE: CHECK FILEMANAGER_CLONE TO SEE IF STARTING FORLOOP FROM 0 IS ACCEPTABLE
+	// ALSO CHECK IF YOU NEED TO DO THIS STEP BELOW IN THREAD_FORK
+    //kprintf ("sys_fork pid: %d\n", curthread->t_pid);
+
+	child_thread->t_fm = filemanager_clone((struct filemanager *)curthread->t_fm);
+	//int s = splhigh();
+	//kprintf ("wait %d\n", curthread->t_pid);
+	//splx(s);
+	P(sem_fork);
+	//s = splhigh();
+	//kprintf ("done %d\n", curthread->t_pid);
+	//splx(s);
+
+	return (child_thread->t_pid);
+}
+/*
+pid_t sys_fork(struct trapframe *tf)
+{
+    struct thread 		*child_thread;
+    struct addrspace 	*childaddrspace;
+	struct trapframe 	*child_tf;
+
+	child_tf = kmalloc(sizeof(struct trapframe));
+
+	if (child_tf == NULL){
+    	kfree (child_tf);
+    	return (-1)*(ENOMEM);
+    }
+
+	// disable interrupts
+	int spl;
+	spl = splhigh();
+
+	as_copy(curthread->t_vmspace, &childaddrspace);
+    memcpy(child_tf, tf, sizeof(struct trapframe));
+
+    // need this to pass to md_forkentry, we know that fork() takes 0 parameters, so we can use a0
+	child_tf->tf_a0 = (u_int32_t)childaddrspace;
+	thread_fork(curthread->t_name, child_tf, 0, (void *)md_forkentry, &child_thread);
+
+	child_thread->t_fm = curthread->t_fm;//filemanager_clone((struct filemanager *)curthread->t_fm);;
+
+	// re-enable interrupts
+	splx(spl);
+	kfree(child_tf);
+
+    // return pid of the created child thread
+	return child_thread->t_pid;
+}*/
+
+pid_t sys_waitpid(pid_t pid, int *status, int options)
+{
+	assert(pid);
+    assert(status);
+
+    if (options > 0)
+    {
+        return (-1)*(EINVAL);
+    }
+    if (status == NULL)
+    {
+        return (-1)*(EFAULT);
+    }
+
+    struct processhandler *ph_child = pidmanager_get(pidmgr, pid);
+
+    // if process does not exist, the function fails
+    if (ph_child == NULL)
+    {
+      //  kprintf("Error: The process doesn't exist.");
+        //return (-1)*EINVAL;
+    }
+
+    // acquire the process handler exit lock
+    lock_acquire(ph_child->ph_exitlock);
+    kprintf("sys_waitpid: %d waiting for this pid %d\n", sys_getpid(),pid);
+
+    // wait for process to exit
+    while (ph_child->ph_status == PH_NOT_EXITED)
+    {
+        cv_wait(ph_child->ph_exitcv, ph_child->ph_exitlock);
+        *status = ph_child->ph_exitcode;
+    }
+
+    kprintf("sys_waitpid: %d done waiting for %d with ph_status of %d\n", sys_getpid(),pid, ph_child->ph_status);
+    // set the appropriate exit code
+    assert(ph_child->ph_status == PH_EXITED);
+
+    *status = ph_child->ph_exitcode;
+    kprintf("ph_child->ph_exitcode: %d\n", ph_child->ph_exitcode);
+    // release the parent lock
+    lock_release(ph_child->ph_exitlock);
+    kprintf("after lock release, return pid: %d\n", pid);
+	return pid;
+}
+
+#endif

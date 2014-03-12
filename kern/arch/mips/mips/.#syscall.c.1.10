@@ -1,0 +1,484 @@
+/* PERSONAL TODOS:
+ *
+ *  **** DONE March 11th, 2012 **** 
+ * 	- filemanager_add, filemanager_remove algorithm: 
+ * 		- when we remove a fd, we set it to NULL in the fm data
+ * 		- when we do an add, we search for the first NULL in the fm data
+ * 		- if there is no NULL in the fm data, resize array and add at last index
+ *
+ *  **** DONE March 11th, 2012 **** 
+ *	- handle errno:
+ *		- in the mips_syscall
+ *		- store errno into err
+ *		- for each sys_* function, if errno wants to be set, return the
+ *			equivalent mapping (< 0, we find this mapping)
+ *
+ *	- assertions:
+ *		- go over all syscalls and add more assertions
+ *
+ *	- testing:
+ *		- max file size writing
+ *		- sys_close()
+ *		
+ *  **** DONE March 11th, 2012 **** 
+ *	- make sure to destroy filemanager when sys__exit() is called
+ *	- use filedescriptor_destroy when destroying filemanager
+ */
+#include <types.h>
+#include <kern/errno.h>
+#include <lib.h>
+#include <machine/pcb.h>
+#include <machine/spl.h>
+
+#include <machine/trapframe.h>
+#include <kern/callno.h>
+#include <syscall.h>
+#include "opt-A2.h"
+
+#if OPT_A2
+#include <thread.h>
+#include <curthread.h>
+#include <kern/unistd.h>
+#include <filemanager.h>
+#include <filedescriptor.h>
+#include <uio.h>
+#include <vnode.h>
+#include <synch.h>
+#include <vfs.h>
+#endif
+
+/*
+ * System call handler.
+ *
+ * A pointer to the trapframe created during exception entry (in
+ * exception.S) is passed in.
+ *
+ * The calling conventions for syscalls are as follows: Like ordinary
+ * function calls, the first 4 32-bit arguments are passed in the 4
+ * argument registers a0-a3. In addition, the system call number is
+ * passed in the v0 register.
+ *
+ * On successful return, the return value is passed back in the v0
+ * register, like an ordinary function call, and the a3 register is
+ * also set to 0 to indicate success.
+ *
+ * On an error return, the error code is passed back in the v0
+ * register, and the a3 register is set to 1 to indicate failure.
+ * (Userlevel code takes care of storing the error code in errno and
+ * returning the value -1 from the actual userlevel syscall function.
+ * See src/lib/libc/syscalls.S and related files.)
+ *
+ * Upon syscall return the program counter stored in the trapframe
+ * must be incremented by one instruction; otherwise the exception
+ * return code will restart the "syscall" instruction and the system
+ * call will repeat forever.
+ *
+ * Since none of the OS/161 system calls have more than 4 arguments,
+ * there should be no need to fetch additional arguments from the
+ * user-level stack.
+ *
+ * Watch out: if you make system calls that have 64-bit quantities as
+ * arguments, they will get passed in pairs of registers, and not
+ * necessarily in the way you expect. We recommend you don't do it.
+ * (In fact, we recommend you don't use 64-bit quantities at all. See
+ * arch/mips/include/types.h.)
+ */
+
+void
+mips_syscall(struct trapframe *tf)
+{
+	int callno;
+	int32_t retval;
+	int err;
+
+	assert(curspl==0);
+
+	callno = tf->tf_v0;
+
+	/*
+	 * Initialize retval to 0. Many of the system calls don't
+	 * really return a value, just 0 for success and -1 on
+	 * error. Since retval is the value returned on success,
+	 * initialize it to 0 by default; thus it's not necessary to
+	 * deal with it except for calls that return other values, 
+	 * like write.
+	 */
+
+	retval = 0;
+
+	switch (callno) {
+	    case SYS_reboot:
+			err = sys_reboot(tf->tf_a0);
+			break;
+
+#if OPT_A2
+	    case SYS_open:
+			err = sys_open((char *)tf->tf_a0, tf->tf_a1, tf->tf_a2);
+			if (err > 0)
+			{
+				retval = err;
+				err = 0;
+			}
+			break;
+
+	    case SYS_close:
+	    	err = sys_close(tf->tf_a0);
+			break;
+
+	    case SYS_read:
+	    	err = sys_read(tf->tf_a0, (void *)tf->tf_a1, tf->tf_a2);
+
+			if (err > 0)
+			{
+				retval = err;
+				err = 0;
+			}
+			break;
+
+	    case SYS_write:
+			err = sys_write(tf->tf_a0, (void *)tf->tf_a1, tf->tf_a2);
+
+			if (err > 0)
+			{
+				retval = err;
+				err = 0;
+			}
+			break;
+
+	    case SYS_fork:
+			err = sys_fork(tf);
+            
+            if (err >= 0)
+            {
+                retval = err;
+                err = 0;
+            }
+			break;
+
+	    case SYS_getpid:
+            err = sys_getpid();
+            
+            if (err > 0)
+            {
+                retval = err;
+                err = 0;
+            }
+            break;
+
+	    case SYS_waitpid:
+            err = sys_waitpid(tf->tf_a0, (int *)tf->tf_a1, (int)tf->tf_a2);
+			break;
+
+	    case SYS__exit:
+	    	sys__exit(0);
+			break;
+
+	    case SYS_execv:
+			err = sys_execv((char *)tf->tf_a0, (char **)tf->tf_a1);
+			break;
+#endif	    
+
+	    default:
+			kprintf("Unknown syscall %d\n", callno);
+			err = ENOSYS;
+			break;
+	}
+
+    
+	if (err < 0) {
+		/*
+		 * Return the error code. This gets converted at
+		 * userlevel to a return value of -1 and the error
+		 * code in errno.
+		 */
+		tf->tf_v0 = (-1)*(err);
+		tf->tf_a3 = 1;      /* signal an error */
+	}
+	else {
+		/* Success. */
+		tf->tf_v0 = retval;
+		tf->tf_a3 = 0;      /* signal no error */
+	}
+	
+	/*
+	 * Now, advance the program counter, to avoid restarting
+	 * the syscall over and over again.
+	 */
+	
+	tf->tf_epc += 4;
+
+	/* Make sure the syscall code didn't forget to lower spl */
+	assert(curspl==0);
+}
+
+#if OPT_A2
+
+int sys_open(const char *filename, int flags, unsigned int mode)
+{
+    // remove warnings for unused function arguments
+    (void)mode;
+    
+	struct filedescriptor* fd;
+	struct vnode *v;
+
+	int ret = vfs_open((void *)filename, flags, &v);
+
+	// check if vfs_open was successful
+	if (ret)
+	{
+		// vfs_open returns the errno if it exists
+		return (-1)*(ret);
+	}
+
+	// configure file descriptor to add to filemanager
+	char lock_name[128];
+	strcpy (lock_name, "lock_");
+	strcat (lock_name, filename);
+	fd = filedescriptor_create(v, 0, flags, lock_name);
+
+	// add filedescriptor to filemanager
+	int file_id;
+	file_id = filemanager_add((struct filemanager *)curthread->t_fm, fd);
+
+	// return file id on success
+	return file_id;
+}
+
+int sys_close(int fd)
+{
+	int ret;
+	ret = filemanager_remove((struct filemanager *)curthread->t_fm, fd);
+
+	if (ret)
+	{
+		return (-1)*(ret);
+	}
+
+	return 0;
+}
+
+int sys_read(int fd, void *buff, size_t buflen)
+{
+	// parameters for VOP_READ
+	struct filedescriptor *file_d;
+	struct uio u;
+	int result;
+	int bytes_read;
+
+	// check if buff is valid
+	if (!buff)
+	{
+		return (-1)*(EFAULT);
+	}
+    
+    // fetch the filedescriptor from the filemanager of the curthread
+	file_d = filemanager_get((struct filemanager *)curthread->t_fm, fd);
+
+    // check if filedescriptor is valid
+	if (file_d == NULL)
+	{
+		return (-1)*(EBADF);
+	}
+
+	// make sure that the filedescriptor is not read-only
+	if (file_d->fd_mode == O_WRONLY)
+	{
+		return (-1)*(EBADF);
+    }
+
+	// configure uio
+	u.uio_iovec.iov_un.un_ubase = buff;
+	u.uio_iovec.iov_len = buflen;
+	u.uio_offset = file_d->fd_offset;
+	u.uio_resid = buflen;
+	u.uio_segflg = UIO_USERSPACE;
+	u.uio_rw = UIO_READ;
+	u.uio_space = curthread->t_vmspace;
+
+	// cache number of bytes set to be read
+	bytes_read = u.uio_resid;
+
+	// make sure mutual exclusion on the file being read
+	lock_acquire(file_d->fd_lock);
+
+	// read from file
+	result = VOP_READ(file_d->fd_vnode, &u);
+
+	lock_release(file_d->fd_lock);
+
+	// update bytes read
+	bytes_read -= u.uio_resid;
+
+	// check if end-of-file
+	if (bytes_read == 0)
+	{
+		return 0;
+	}
+    
+	// update the offset value of the filedescriptor
+	file_d->fd_offset += buflen;
+
+	// report number of bytes read
+	return buflen;
+}
+
+int sys_write(int fd, const void *buff, size_t nbytes)
+{
+	// parameters for VOP_WRITE
+	struct filedescriptor *file_d;
+	struct uio u;
+	int result;
+	int bytes_written;
+    
+	// check if buff is valid
+	if (!buff)
+	{
+		return (-1)*(EFAULT);
+	}
+    
+	// fetch the filedescriptor from the filemanager of the curthread
+	file_d = filemanager_get((struct filemanager *)curthread->t_fm, fd);
+
+	// check if filedescriptor is valid
+	if (file_d == NULL)
+	{
+		return (-1)*(EBADF);
+	}
+
+	// make sure that the filedescriptor is not read-only
+	if (file_d->fd_mode == O_RDONLY)
+	{
+		return (-1)*(EBADF);
+	}
+
+	// configure uio
+	u.uio_iovec.iov_un.un_ubase = (void *)buff;
+	u.uio_iovec.iov_len = nbytes;
+	u.uio_offset = file_d->fd_offset;
+	u.uio_resid = nbytes;
+	u.uio_segflg = UIO_SYSSPACE;
+	u.uio_rw = UIO_WRITE;
+	u.uio_space = NULL;
+
+	// cache number of bytes to write
+	bytes_written = u.uio_resid;
+
+	// make sure mutual exclusion on the file being written on
+	lock_acquire(file_d->fd_lock);
+
+	// write to file
+	result = VOP_WRITE(file_d->fd_vnode, &u);
+
+	lock_release(file_d->fd_lock);
+
+	// update bytes written
+	bytes_written -= u.uio_resid;
+
+	// check if there is no space in the filesystem
+	if (bytes_written == 0)
+	{
+		return 0;
+	}
+
+	// update the offset value of the filedescriptor
+	file_d->fd_offset += nbytes;
+
+	// report number of bytes written
+	return nbytes;
+}
+
+void
+md_forkentry(struct trapframe *tf)
+{
+	/*
+	 * This function is provided as a reminder. You need to write
+	 * both it and the code that calls it.
+	 *
+	 * Thus, you can trash it and do things another way if you prefer.
+	 */
+
+	/*
+	 * This function is used to copy the trapframe of the parent process into
+	 * the the child's and return the child process to user mode
+	 */
+	int s = splhigh(); // disable interrupts
+
+	struct trapframe newtf; //new trapframe for the child
+
+	// copy the trapframe
+	memcpy (&newtf, tf, sizeof(struct trapframe));
+
+	newtf.tf_v0 = 0; // return value of the child process should be 0
+	newtf.tf_epc += 4; // advance the PC to avoid redo of the syscall
+	newtf.tf_a3 = 0; // indicate that there are no errors
+
+	splx(s);
+	// return to usermode
+	mips_usermode(&newtf);
+
+	//(void)tf;
+}
+
+pid_t sys_fork(struct trapframe *tf)
+{
+    struct thread *child_thread;
+    struct trapframe *child_tf = kmalloc(sizeof(struct trapframe));
+
+    if (child_tf = NULL){
+    	kfree (child_tf);
+    	return -ENOMEM;
+    }
+
+    int s;
+    s = splhigh();
+    memcpy(child_tf, tf, sizeof(struct trapframe));
+    splx(s);
+
+    thread_fork(curthread->t_name, child_tf, 0, md_forkentry, &child_thread);
+
+    
+	return (child_thread->id);
+}
+
+pid_t sys_getpid(void)
+{
+	// need to store the PID in the thread and just return that here
+    kprintf("TODO: sys_getpid\n");
+    
+	return 0; //*(curthread->t_id);
+}
+
+pid_t sys_waitpid(pid_t pid, int *status, int options)
+{
+    // remove warnings for unused function arguments
+    (void)pid;
+    (void)status;
+    (void)options;
+    
+    kprintf("TODO: sys_waitpid\n");
+    
+	return 0;
+}
+
+void sys__exit(int exitcode)
+{
+    // remove warnings for unused function arguments
+    (void)exitcode;
+    
+    filemanager_destroy((struct filemanager *)curthread->t_fm);
+    thread_exit();
+	return;
+}
+
+int sys_execv(const char *program, char **args)
+{
+    // remove warnings for unused function arguments
+    (void)program;
+    (void)args;
+    
+    kprintf("TODO: sys_execv\n");
+    
+	return 0;
+}
+
+#endif

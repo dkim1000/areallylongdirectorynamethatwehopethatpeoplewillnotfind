@@ -1,0 +1,38 @@
+#!/bin/bash
+
+CURRENT_ASSIGNMENT_NUMBER=2
+
+# configures the makefile
+echo ---------------------------------
+echo configuring the makefile...
+echo ---------------------------------
+cd ../
+./configure-me
+cd kern
+
+./clean
+
+# takes the config file and creates a compile directory
+echo ---------------------------------
+echo creating compile directory...
+echo ---------------------------------
+cd conf
+./config ASST${CURRENT_ASSIGNMENT_NUMBER}
+
+# build the kernel
+echo ---------------------------------
+echo building the kernel...
+echo ---------------------------------
+cd ../compile/ASST${CURRENT_ASSIGNMENT_NUMBER}
+make depend
+make
+make install
+
+# run the kernel
+echo --------------------------------
+echo running the kernel...
+echo --------------------------------
+cd ~/cs350-os161/root
+sys161 kernel "${1}"
+#sys161 kernel "p testbin/add 2 4;q"
+#sys161 kernel "p testbin/bigfile"

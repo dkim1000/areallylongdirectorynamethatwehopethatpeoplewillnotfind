@@ -1,0 +1,244 @@
+/*
+ * filemanager.c
+ *
+ *  Created on: Mar 7, 2012
+ *      Author: BE GENEROUS WHEN MARKING
+ */
+
+#include <kern/unistd.h>
+#include <types.h>
+#include <curthread.h>
+#include <lib.h>
+#include <array.h>
+#include <vfs.h>
+#include <synch.h>
+#include <filedescriptor.h>
+#include <filemanager.h>
+#include <queue.h>
+#include <thread.h>
+#include <machine/spl.h>
+
+struct filemanager *
+filemanager_create()
+{
+	struct filemanager *fm;
+
+	fm = kmalloc(sizeof(struct filemanager));
+	fm->fm_data = array_create();
+	fm->fm_initialized = 0;
+
+	return fm;
+}
+
+// initializing the filemanager to have the initial 3 STDIO
+int
+filemanager_init(struct filemanager *fm)
+{
+	if (fm->fm_initialized == 1)
+	{
+		return -1;
+	}
+
+	assert(fm);
+
+	struct vnode *v;
+	int result;
+	char *str_con = kmalloc (sizeof (char) * 4);
+
+	struct filedescriptor *fd_stdin;
+	struct filedescriptor *fd_stdout;
+	struct filedescriptor *fd_stderr;
+
+	fd_stdin = kmalloc(sizeof(struct filedescriptor));
+	fd_stdout = kmalloc(sizeof(struct filedescriptor));
+	fd_stderr = kmalloc(sizeof(struct filedescriptor));
+
+	// STDIN
+	strcpy(str_con, "con:");
+	result = vfs_open(str_con, O_RDONLY, &v);
+	if (result)
+	{
+		kprintf("Failed to open STDIN: %s\n", strerror(result));
+		vfs_close(v);
+		filemanager_destroy(fm);
+		return -1;
+	}
+	fd_stdin = filedescriptor_create(v, 0, O_RDONLY, (char *)("lock_stdin"));
+
+	// STDOUT
+	strcpy(str_con, "con:");
+	result = vfs_open(str_con, O_WRONLY, &v);
+	if (result)
+	{
+		kprintf("Failed to open STDOUT: %s\n", strerror(result));
+		vfs_close(v);
+		filemanager_destroy(fm);
+		return -1;
+	}
+	fd_stdout = filedescriptor_create(v, 0, O_WRONLY, (char *)("lock_stdout"));
+
+	// STDERR
+	strcpy(str_con, "con:");
+	result = vfs_open(str_con, O_WRONLY, &v);
+	if (result)
+	{
+		kprintf("Failed to open STDERR: %s\n", strerror(result));
+		vfs_close(v);
+		filemanager_destroy(fm);
+		return -1;
+	}
+	fd_stderr = filedescriptor_create(v, 0, O_WRONLY, (char *)("lock_stderr"));
+
+	if (fm->fm_initialized == 0)
+	{
+		fm->fm_initialized = 1;
+	}
+
+	filemanager_add(fm, fd_stdin);
+	filemanager_add(fm, fd_stdout);
+	filemanager_add(fm, fd_stderr);
+
+	return 0;
+}
+
+struct filedescriptor *
+filemanager_get(struct filemanager *fm, int fd_index)
+{
+	assert(fm);
+	if (fm->fm_initialized == 0)
+	{
+		filemanager_init(fm);
+	}
+	assert(fm->fm_initialized == 1);
+    
+	struct filedescriptor *fd;
+    fd = array_getguy(fm->fm_data, fd_index);
+
+    if (fd == NULL || fd->fd_opened == 0)
+    {
+    	return NULL;
+    }
+	return fd;
+}
+
+int
+filemanager_add(struct filemanager *fm, struct filedescriptor *fd)
+{
+	assert(fm);
+
+	if (fm->fm_initialized == 0)
+	{
+		filemanager_init(fm);
+	}
+	assert(fm->fm_initialized == 1);
+
+	int index;
+	int found = 0;
+	// find the next available space to "insert"
+	for (index=0; index<filemanager_getsize(fm); index++)
+	{
+		if (filemanager_get(fm, index) == NULL)
+		{
+			found = 1;
+			break;
+		}
+	}
+
+	if (found)
+	{
+		array_setguy(fm->fm_data, index, (void *)fd);
+	}
+	else
+	{
+		array_add(fm->fm_data, (void *)fd);
+	}
+
+	return index;
+}
+
+int
+filemanager_remove(struct filemanager *fm, int index)
+{
+	assert(fm);
+
+	struct filedescriptor *fd = filemanager_get(fm, index);
+	array_setguy(fm->fm_data, index, NULL);
+
+	if (fd != NULL)
+	{
+		filedescriptor_destroy(fd);
+	}
+
+	return 0;
+}
+
+void
+filemanager_clone(struct filemanager *fm, struct filemanager **fm_clone)
+{
+	//kprintf ("START CLONE\n");
+	assert(fm);
+	if (fm->fm_initialized == 0)
+	{
+		filemanager_init(fm);
+	}
+	assert(fm->fm_initialized == 1);
+
+    //struct filemanager *fm_clone;
+	*fm_clone = filemanager_create();
+
+    assert(fm);
+    assert(*fm_clone);
+
+    int size;
+    size = filemanager_getsize(fm);
+    //kprintf ("size: %d\n", size);
+
+    (*fm_clone)->fm_initialized = 1;
+    int index;
+    for (index = 0; index < size; index++)
+    {
+    	//kprintf ("index of cloning fd: %d\n", index);
+    	struct filedescriptor *fd = filemanager_get(fm, index);
+    	lock_acquire(fd->fd_lock);
+    	filemanager_add(*fm_clone, fd);
+    	lock_release(fd->fd_lock);
+    }
+
+    //return fm_clone;
+}
+
+int
+filemanager_getsize(struct filemanager *fm)
+{
+    return array_getnum(fm->fm_data);
+}
+
+void
+filemanager_destroy(struct filemanager *fm)
+{
+	assert(fm);
+    int i;
+    //filemanager_print (fm);
+    for (i=0; i<filemanager_getsize(fm); i++)
+	{
+		filemanager_remove(fm, i);
+	}
+
+    assert(fm->fm_data);
+	array_destroy(fm->fm_data);
+
+	kfree(fm);
+}
+
+void 
+filemanager_print(struct filemanager *fm)
+{
+    int i;
+    kprintf("pid %d:\t", (int)curthread->t_pid);
+    for (i = 0; i<filemanager_getsize(fm); i++)
+    {
+        if (filemanager_get(fm, i) == NULL) kprintf("X");
+        else kprintf("%d", i);
+    }
+    kprintf("\n");
+}

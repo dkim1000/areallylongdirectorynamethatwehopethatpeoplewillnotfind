@@ -1,0 +1,4676 @@
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/.DS_Store,v
+Working file: .DS_Store
+head: 1.11
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 12;	selected revisions: 12
+description:
+----------------------------
+revision 1.11
+date: 2012-03-12 17:04:02 -0400;  author: ycpoon;  state: Exp;  lines: +4 -1;  commitid: Irn9X6FVrxzTCDWv;
+Fixed broken build
+----------------------------
+revision 1.10
+date: 2012-03-12 07:29:08 -0400;  author: ycpoon;  state: Exp;  lines: +3 -0;  commitid: ixxSzx2N0oDPrAWv;
+Committing randomstuff
+----------------------------
+revision 1.9
+date: 2012-03-12 06:40:35 -0400;  author: k39chen;  state: Exp;  lines: +15 -0;  commitid: 1RzPZAjSDl4bbAWv;
+added argument handling
+----------------------------
+revision 1.8
+date: 2012-03-12 03:52:42 -0400;  author: ycpoon;  state: Exp;  lines: +1 -1;  commitid: p6BgwBxC6ukAfzWv;
+Waitpid
+----------------------------
+revision 1.7
+date: 2012-03-12 03:13:03 -0400;  author: ycpoon;  state: Exp;  lines: +1 -1;  commitid: q4M9TQqHq2SY1zWv;
+Changed conf.kern
+----------------------------
+revision 1.6
+date: 2012-03-12 02:25:02 -0400;  author: ycpoon;  state: Exp;  lines: +5 -1;  commitid: Zgi4uCAEAQHvLyWv;
+Added pidmanager.h and pidmanager.c. Does not work yet. Can't make pidmanager pm global across kernel.
+----------------------------
+revision 1.5
+date: 2012-03-11 20:19:34 -0400;  author: k39chen;  state: Exp;  lines: +1 -1;  commitid: odChxgXLrlG8KwWv;
+Added pid property to thread data structure
+----------------------------
+revision 1.4
+date: 2012-03-11 19:21:25 -0400;  author: k39chen;  state: Exp;  lines: +3 -3;  commitid: Efkwc0erZXLbqwWv;
+Added search script
+----------------------------
+revision 1.3
+date: 2012-03-11 09:42:27 -0400;  author: dwdkim;  state: Exp;  lines: +4 -8;  commitid: yRQnw4l7uE7wdtWv;
+changes from march 10
+----------------------------
+revision 1.2
+date: 2012-03-06 23:25:37 -0500;  author: k39chen;  state: Exp;  lines: +9 -1;  commitid: 1ks4hIviW4UvgUVv;
+Implementation for sys__exit
+----------------------------
+revision 1.1
+date: 2012-02-15 06:18:31 -0500;  author: k39chen;  state: Exp;  commitid: XJ6NnnkK2AkZdfTv;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-02-15 06:18:31 -0500;  author: k39chen;  state: Exp;  lines: +0 -0;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/Makefile,v
+Working file: Makefile
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/run,v
+Working file: run
+head: 1.7
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 8;	selected revisions: 8
+description:
+----------------------------
+revision 1.7
+date: 2012-03-12 17:18:49 -0400;  author: k39chen;  state: Exp;  lines: +2 -0;  commitid: nS9OBthUCD58IDWv;
+Fixed more stuff
+----------------------------
+revision 1.6
+date: 2012-03-12 16:08:53 -0400;  author: k39chen;  state: Exp;  lines: +1 -1;  commitid: 4lWqnay8IkP8kDWv;
+Added optional parameter for run to execute OS command at startup
+----------------------------
+revision 1.5
+date: 2012-03-12 16:04:31 -0400;  author: k39chen;  state: Exp;  lines: +8 -0;  commitid: d4RK16qZXPqDiDWv;
+Integrated makefile configure to run script
+----------------------------
+revision 1.4
+date: 2012-03-07 20:22:28 -0500;  author: dwdkim;  state: Exp;  lines: +2 -2;  commitid: h945yPxkG7cGd1Wv;
+implemented filedescriptor and filemanager
+----------------------------
+revision 1.3
+date: 2012-03-07 02:50:47 -0500;  author: dwdkim;  state: Exp;  lines: +2 -2;  commitid: jymQ2FTsyrjToVVv;
+Created data structures filedescriptor and filemanager
+----------------------------
+revision 1.2
+date: 2012-02-15 17:00:40 -0500;  author: dwdkim;  state: Exp;  lines: +1 -0;  commitid: s9AM8o2t2amfMiTv;
+panic code
+----------------------------
+revision 1.1
+date: 2012-02-15 06:18:31 -0500;  author: k39chen;  state: Exp;  commitid: XJ6NnnkK2AkZdfTv;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-02-15 06:18:31 -0500;  author: k39chen;  state: Exp;  lines: +0 -0;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/search,v
+Working file: search
+head: 1.1
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 1;	selected revisions: 1
+description:
+----------------------------
+revision 1.1
+date: 2012-03-11 19:21:25 -0400;  author: k39chen;  state: Exp;  commitid: Efkwc0erZXLbqwWv;
+Added search script
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/updatescripts,v
+Working file: updatescripts
+head: 1.1
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 1;	selected revisions: 1
+description:
+----------------------------
+revision 1.1
+date: 2012-03-09 07:27:09 -0500;  author: dwdkim;  state: Exp;  commitid: 9D4M8KUidsAIRcWv;
+file operations almost complete. Run both scripts after update.
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/conf/Makefile.mips,v
+Working file: arch/mips/conf/Makefile.mips
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/conf/conf.arch,v
+Working file: arch/mips/conf/conf.arch
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/conf/ldscript,v
+Working file: arch/mips/conf/ldscript
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/asmdefs.h,v
+Working file: arch/mips/include/asmdefs.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/bus.h,v
+Working file: arch/mips/include/bus.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/include,v
+Working file: arch/mips/include/include
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-02-15 06:18:31 -0500;  author: k39chen;  state: Exp;  commitid: XJ6NnnkK2AkZdfTv;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-02-15 06:18:31 -0500;  author: k39chen;  state: Exp;  lines: +0 -0;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/ktypes.h,v
+Working file: arch/mips/include/ktypes.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/pcb.h,v
+Working file: arch/mips/include/pcb.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/setjmp.h,v
+Working file: arch/mips/include/setjmp.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/specialreg.h,v
+Working file: arch/mips/include/specialreg.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/spl.h,v
+Working file: arch/mips/include/spl.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/switchframe.h,v
+Working file: arch/mips/include/switchframe.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/tlb.h,v
+Working file: arch/mips/include/tlb.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/trapframe.h,v
+Working file: arch/mips/include/trapframe.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/types.h,v
+Working file: arch/mips/include/types.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/include/vm.h,v
+Working file: arch/mips/include/vm.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/cache_mips1.S,v
+Working file: arch/mips/mips/cache_mips1.S
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/dumbvm.c,v
+Working file: arch/mips/mips/dumbvm.c
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.2
+date: 2012-03-11 20:19:34 -0400;  author: k39chen;  state: Exp;  lines: +1 -1;  commitid: odChxgXLrlG8KwWv;
+Added pid property to thread data structure
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/exception.S,v
+Working file: arch/mips/mips/exception.S
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/interrupt.c,v
+Working file: arch/mips/mips/interrupt.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/lamebus_mips.c,v
+Working file: arch/mips/mips/lamebus_mips.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/pcb.c,v
+Working file: arch/mips/mips/pcb.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/ram.c,v
+Working file: arch/mips/mips/ram.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/spl.c,v
+Working file: arch/mips/mips/spl.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/start.S,v
+Working file: arch/mips/mips/start.S
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/switch.S,v
+Working file: arch/mips/mips/switch.S
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/syscall.c,v
+Working file: arch/mips/mips/syscall.c
+head: 1.18
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.2
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 20;	selected revisions: 20
+description:
+----------------------------
+revision 1.18
+date: 2012-03-12 17:04:02 -0400;  author: ycpoon;  state: Exp;  lines: +23 -33;  commitid: Irn9X6FVrxzTCDWv;
+Fixed broken build
+----------------------------
+revision 1.17
+date: 2012-03-12 15:47:16 -0400;  author: k39chen;  state: Exp;  lines: +0 -1;  commitid: T2LAES5bqDEHcDWv;
+Small fixes to accomodate test scripts
+----------------------------
+revision 1.16
+date: 2012-03-12 07:29:08 -0400;  author: ycpoon;  state: Exp;  lines: +19 -9;  commitid: ixxSzx2N0oDPrAWv;
+Committing randomstuff
+----------------------------
+revision 1.15
+date: 2012-03-12 07:00:19 -0400;  author: dwdkim;  state: Exp;  lines: +5 -3;  commitid: 2YGkvIftA9YWhAWv;
+fixed warnings
+----------------------------
+revision 1.14
+date: 2012-03-12 06:24:24 -0400;  author: dwdkim;  state: Exp;  lines: +56 -20;  commitid: vpMBZWFjY0yA5AWv;
+*** empty log message ***
+----------------------------
+revision 1.13
+date: 2012-03-12 03:52:42 -0400;  author: ycpoon;  state: Exp;  lines: +16 -6;  commitid: p6BgwBxC6ukAfzWv;
+Waitpid
+----------------------------
+revision 1.12
+date: 2012-03-12 03:13:03 -0400;  author: ycpoon;  state: Exp;  lines: +23 -10;  commitid: q4M9TQqHq2SY1zWv;
+Changed conf.kern
+----------------------------
+revision 1.11
+date: 2012-03-12 02:25:02 -0400;  author: ycpoon;  state: Exp;  lines: +20 -4;  commitid: Zgi4uCAEAQHvLyWv;
+Added pidmanager.h and pidmanager.c. Does not work yet. Can't make pidmanager pm global across kernel.
+----------------------------
+revision 1.10
+date: 2012-03-11 09:42:27 -0400;  author: dwdkim;  state: Exp;  lines: +80 -57;  commitid: yRQnw4l7uE7wdtWv;
+changes from march 10
+----------------------------
+revision 1.9
+date: 2012-03-09 07:27:09 -0500;  author: dwdkim;  state: Exp;  lines: +196 -37;  commitid: 9D4M8KUidsAIRcWv;
+file operations almost complete. Run both scripts after update.
+----------------------------
+revision 1.8
+date: 2012-03-07 20:22:28 -0500;  author: dwdkim;  state: Exp;  lines: +51 -26;  commitid: h945yPxkG7cGd1Wv;
+implemented filedescriptor and filemanager
+----------------------------
+revision 1.7
+date: 2012-03-07 02:50:47 -0500;  author: dwdkim;  state: Exp;  lines: +31 -6;  commitid: jymQ2FTsyrjToVVv;
+Created data structures filedescriptor and filemanager
+----------------------------
+revision 1.6
+date: 2012-03-06 23:37:01 -0500;  author: k39chen;  state: Exp;  lines: +3 -2;  commitid: 3LqFAXTldmSpkUVv;
+TEAM NAME
+----------------------------
+revision 1.5
+date: 2012-03-06 23:25:37 -0500;  author: k39chen;  state: Exp;  lines: +1 -4;  commitid: 1ks4hIviW4UvgUVv;
+Implementation for sys__exit
+----------------------------
+revision 1.4
+date: 2012-03-06 23:23:34 -0500;  author: ycpoon;  state: Exp;  lines: +4 -4;  commitid: 8YvcZQ2U0p2OfUVv;
+Recommitted for Kevin.
+----------------------------
+revision 1.3
+date: 2012-03-06 23:21:04 -0500;  author: ycpoon;  state: Exp;  lines: +17 -5;  commitid: 7FvudWSNUEQFeUVv;
+Committing sys__exit(). Working copy.
+----------------------------
+revision 1.2
+date: 2012-02-15 17:00:41 -0500;  author: dwdkim;  state: Exp;  lines: +95 -8;  commitid: s9AM8o2t2amfMiTv;
+panic code
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.2
+date: 2012-02-15 06:18:32 -0500;  author: k39chen;  state: Exp;  lines: +39 -3;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/threadstart.S,v
+Working file: arch/mips/mips/threadstart.S
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/tlb_mips1.S,v
+Working file: arch/mips/mips/tlb_mips1.S
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/arch/mips/mips/trap.c,v
+Working file: arch/mips/mips/trap.c
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.4
+date: 2012-03-12 06:40:35 -0400;  author: k39chen;  state: Exp;  lines: +1 -2;  commitid: 1RzPZAjSDl4bbAWv;
+added argument handling
+----------------------------
+revision 1.3
+date: 2012-03-11 20:19:34 -0400;  author: k39chen;  state: Exp;  lines: +1 -1;  commitid: odChxgXLrlG8KwWv;
+Added pid property to thread data structure
+----------------------------
+revision 1.2
+date: 2012-03-11 19:21:25 -0400;  author: k39chen;  state: Exp;  lines: +3 -0;  commitid: Efkwc0erZXLbqwWv;
+Added search script
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/asst1/.DS_Store,v
+Working file: asst1/.DS_Store
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-02-15 06:18:32 -0500;  author: k39chen;  state: Exp;  commitid: XJ6NnnkK2AkZdfTv;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-02-15 06:18:32 -0500;  author: k39chen;  state: Exp;  lines: +0 -0;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/asst1/._bowls.c,v
+Working file: asst1/._bowls.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-02-15 06:18:32 -0500;  author: k39chen;  state: Exp;  commitid: XJ6NnnkK2AkZdfTv;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-02-15 06:18:32 -0500;  author: k39chen;  state: Exp;  lines: +0 -0;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/asst1/._catmouse.c,v
+Working file: asst1/._catmouse.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-02-15 06:18:32 -0500;  author: k39chen;  state: Exp;  commitid: XJ6NnnkK2AkZdfTv;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-02-15 06:18:32 -0500;  author: k39chen;  state: Exp;  lines: +0 -0;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/asst1/bowls.c,v
+Working file: asst1/bowls.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.2
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.2
+date: 2012-02-15 06:18:32 -0500;  author: k39chen;  state: Exp;  lines: +5 -4;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/asst1/catmouse.c,v
+Working file: asst1/catmouse.c
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.3
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 6;	selected revisions: 6
+description:
+----------------------------
+revision 1.3
+date: 2012-02-13 21:32:34 -0500;  author: dwdkim;  state: Exp;  lines: +294 -295;  commitid: 2RuMm6FDNkVyl4Tv;
+Daniel's lock/cv/catmouse
+----------------------------
+revision 1.2
+date: 2012-02-13 18:04:46 -0500;  author: ycpoon;  state: Exp;  lines: +297 -156;  commitid: 7tANrZjXH6vbc3Tv;
+krista: testing repository by adding a file
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.3
+date: 2012-02-15 06:18:32 -0500;  author: k39chen;  state: Exp;  lines: +249 -287;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+----------------------------
+revision 1.1.1.2
+date: 2012-02-13 20:56:49 -0500;  author: dwdkim;  state: Exp;  lines: +165 -25;  commitid: E3LQ3mlXnY1j94Tv;
+Import of os161
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/asst1/stoplight.c,v
+Working file: asst1/stoplight.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/compile/.cvsignore,v
+Working file: compile/.cvsignore
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/conf/ASST0,v
+Working file: conf/ASST0
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/conf/ASST1,v
+Working file: conf/ASST1
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/conf/ASST2,v
+Working file: conf/ASST2
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/conf/ASST2-OPT,v
+Working file: conf/ASST2-OPT
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/conf/ASST3,v
+Working file: conf/ASST3
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/conf/ASST4,v
+Working file: conf/ASST4
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/conf/ASST5,v
+Working file: conf/ASST5
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/conf/conf.kern,v
+Working file: conf/conf.kern
+head: 1.6
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.3
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 9;	selected revisions: 9
+description:
+----------------------------
+revision 1.6
+date: 2012-03-12 06:24:24 -0400;  author: dwdkim;  state: Exp;  lines: +2 -0;  commitid: vpMBZWFjY0yA5AWv;
+*** empty log message ***
+----------------------------
+revision 1.5
+date: 2012-03-12 03:13:03 -0400;  author: ycpoon;  state: Exp;  lines: +1 -1;  commitid: q4M9TQqHq2SY1zWv;
+Changed conf.kern
+----------------------------
+revision 1.4
+date: 2012-03-12 02:25:02 -0400;  author: ycpoon;  state: Exp;  lines: +1 -0;  commitid: Zgi4uCAEAQHvLyWv;
+Added pidmanager.h and pidmanager.c. Does not work yet. Can't make pidmanager pm global across kernel.
+----------------------------
+revision 1.3
+date: 2012-03-07 02:50:47 -0500;  author: dwdkim;  state: Exp;  lines: +2 -0;  commitid: jymQ2FTsyrjToVVv;
+Created data structures filedescriptor and filemanager
+----------------------------
+revision 1.2
+date: 2012-02-13 18:04:46 -0500;  author: ycpoon;  state: Exp;  lines: +1 -0;  commitid: 7tANrZjXH6vbc3Tv;
+krista: testing repository by adding a file
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.3
+date: 2012-02-15 06:18:32 -0500;  author: k39chen;  state: Exp;  lines: +5 -1;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+----------------------------
+revision 1.1.1.2
+date: 2012-02-13 20:56:49 -0500;  author: dwdkim;  state: Exp;  lines: +1 -0;  commitid: E3LQ3mlXnY1j94Tv;
+Import of os161
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/conf/config,v
+Working file: conf/config
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/conf/newvers.sh,v
+Working file: conf/newvers.sh
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/init.c,v
+Working file: dev/init.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/generic/beep.c,v
+Working file: dev/generic/beep.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/generic/beep.h,v
+Working file: dev/generic/beep.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/generic/console.c,v
+Working file: dev/generic/console.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/generic/console.h,v
+Working file: dev/generic/console.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/generic/pseudorand.c,v
+Working file: dev/generic/pseudorand.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/generic/pseudorand.h,v
+Working file: dev/generic/pseudorand.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/generic/pseudorand_att.c,v
+Working file: dev/generic/pseudorand_att.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/generic/random.c,v
+Working file: dev/generic/random.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/generic/random.h,v
+Working file: dev/generic/random.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/generic/rtclock.c,v
+Working file: dev/generic/rtclock.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/generic/rtclock.h,v
+Working file: dev/generic/rtclock.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/beep_ltimer.c,v
+Working file: dev/lamebus/beep_ltimer.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/con_lscreen.c,v
+Working file: dev/lamebus/con_lscreen.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/con_lser.c,v
+Working file: dev/lamebus/con_lser.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/conf.lamebus,v
+Working file: dev/lamebus/conf.lamebus
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/emu.c,v
+Working file: dev/lamebus/emu.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/emu.h,v
+Working file: dev/lamebus/emu.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/emu_att.c,v
+Working file: dev/lamebus/emu_att.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lamebus.c,v
+Working file: dev/lamebus/lamebus.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lamebus.h,v
+Working file: dev/lamebus/lamebus.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lhd.c,v
+Working file: dev/lamebus/lhd.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lhd.h,v
+Working file: dev/lamebus/lhd.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lhd_att.c,v
+Working file: dev/lamebus/lhd_att.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lnet.c,v
+Working file: dev/lamebus/lnet.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lnet_att.c,v
+Working file: dev/lamebus/lnet_att.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lrandom.c,v
+Working file: dev/lamebus/lrandom.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lrandom.h,v
+Working file: dev/lamebus/lrandom.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lrandom_att.c,v
+Working file: dev/lamebus/lrandom_att.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lscreen.c,v
+Working file: dev/lamebus/lscreen.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lscreen.h,v
+Working file: dev/lamebus/lscreen.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lscreen_att.c,v
+Working file: dev/lamebus/lscreen_att.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lser.c,v
+Working file: dev/lamebus/lser.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lser.h,v
+Working file: dev/lamebus/lser.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/lser_att.c,v
+Working file: dev/lamebus/lser_att.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/ltimer.c,v
+Working file: dev/lamebus/ltimer.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/ltimer.h,v
+Working file: dev/lamebus/ltimer.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/ltimer_att.c,v
+Working file: dev/lamebus/ltimer_att.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/ltrace.c,v
+Working file: dev/lamebus/ltrace.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/ltrace.h,v
+Working file: dev/lamebus/ltrace.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/ltrace_att.c,v
+Working file: dev/lamebus/ltrace_att.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/random_lrandom.c,v
+Working file: dev/lamebus/random_lrandom.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/dev/lamebus/rtclock_ltimer.c,v
+Working file: dev/lamebus/rtclock_ltimer.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/fs/sfs/sfs_fs.c,v
+Working file: fs/sfs/sfs_fs.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/fs/sfs/sfs_io.c,v
+Working file: fs/sfs/sfs_io.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/fs/sfs/sfs_vnode.c,v
+Working file: fs/sfs/sfs_vnode.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/fs/vfs/device.c,v
+Working file: fs/vfs/device.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/fs/vfs/devnull.c,v
+Working file: fs/vfs/devnull.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/fs/vfs/filedescriptor.c,v
+Working file: fs/vfs/filedescriptor.c
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.5
+date: 2012-03-12 17:18:49 -0400;  author: k39chen;  state: Exp;  lines: +3 -1;  commitid: nS9OBthUCD58IDWv;
+Fixed more stuff
+----------------------------
+revision 1.4
+date: 2012-03-11 09:42:27 -0400;  author: dwdkim;  state: Exp;  lines: +6 -5;  commitid: yRQnw4l7uE7wdtWv;
+changes from march 10
+----------------------------
+revision 1.3
+date: 2012-03-09 07:27:58 -0500;  author: dwdkim;  state: Exp;  lines: +0 -1;  commitid: g172mrD0gbc0ScWv;
+fixed previous broken build
+----------------------------
+revision 1.2
+date: 2012-03-09 07:27:09 -0500;  author: dwdkim;  state: Exp;  lines: +28 -0;  commitid: 9D4M8KUidsAIRcWv;
+file operations almost complete. Run both scripts after update.
+----------------------------
+revision 1.1
+date: 2012-03-07 02:52:44 -0500;  author: dwdkim;  state: Exp;  commitid: 251Otn9HzWbzpVVv;
+Created data structures filedescriptor and filemanager
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/fs/vfs/filemanager.c,v
+Working file: fs/vfs/filemanager.c
+head: 1.8
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 8;	selected revisions: 8
+description:
+----------------------------
+revision 1.8
+date: 2012-03-12 17:18:50 -0400;  author: k39chen;  state: Exp;  lines: +1 -1;  commitid: nS9OBthUCD58IDWv;
+Fixed more stuff
+----------------------------
+revision 1.7
+date: 2012-03-12 13:51:48 -0400;  author: k39chen;  state: Exp;  lines: +2 -1;  commitid: Sc60x5gZ3s37zCWv;
+Test commit
+----------------------------
+revision 1.6
+date: 2012-03-12 02:25:02 -0400;  author: ycpoon;  state: Exp;  lines: +16 -0;  commitid: Zgi4uCAEAQHvLyWv;
+Added pidmanager.h and pidmanager.c. Does not work yet. Can't make pidmanager pm global across kernel.
+----------------------------
+revision 1.5
+date: 2012-03-11 09:42:27 -0400;  author: dwdkim;  state: Exp;  lines: +79 -51;  commitid: yRQnw4l7uE7wdtWv;
+changes from march 10
+----------------------------
+revision 1.4
+date: 2012-03-09 07:27:09 -0500;  author: dwdkim;  state: Exp;  lines: +98 -27;  commitid: 9D4M8KUidsAIRcWv;
+file operations almost complete. Run both scripts after update.
+----------------------------
+revision 1.3
+date: 2012-03-08 19:26:30 -0500;  author: k39chen;  state: Exp;  lines: +16 -8;  commitid: v6cDTQhurHMuS8Wv;
+Factored default file descriptors into isolated function call
+----------------------------
+revision 1.2
+date: 2012-03-07 20:22:28 -0500;  author: dwdkim;  state: Exp;  lines: +110 -0;  commitid: h945yPxkG7cGd1Wv;
+implemented filedescriptor and filemanager
+----------------------------
+revision 1.1
+date: 2012-03-07 02:52:44 -0500;  author: dwdkim;  state: Exp;  commitid: 251Otn9HzWbzpVVv;
+Created data structures filedescriptor and filemanager
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/fs/vfs/vfscwd.c,v
+Working file: fs/vfs/vfscwd.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/fs/vfs/vfslist.c,v
+Working file: fs/vfs/vfslist.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/fs/vfs/vfslookup.c,v
+Working file: fs/vfs/vfslookup.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/fs/vfs/vfspath.c,v
+Working file: fs/vfs/vfspath.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/fs/vfs/vnode.c,v
+Working file: fs/vfs/vnode.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/._synch.h,v
+Working file: include/._synch.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-02-15 06:18:35 -0500;  author: k39chen;  state: Exp;  commitid: XJ6NnnkK2AkZdfTv;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-02-15 06:18:35 -0500;  author: k39chen;  state: Exp;  lines: +0 -0;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/._thread.h,v
+Working file: include/._thread.h
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.2
+date: 2012-03-11 22:41:34 -0400;  author: ycpoon;  state: Exp;  lines: +1 -1;  commitid: isyX9q0crJVJwxWv;
+Added comment.
+----------------------------
+revision 1.1
+date: 2012-02-15 06:18:35 -0500;  author: k39chen;  state: Exp;  commitid: XJ6NnnkK2AkZdfTv;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-02-15 06:18:35 -0500;  author: k39chen;  state: Exp;  lines: +0 -0;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/addrspace.h,v
+Working file: include/addrspace.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/array.h,v
+Working file: include/array.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/bitmap.h,v
+Working file: include/bitmap.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/clock.h,v
+Working file: include/clock.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/curthread.h,v
+Working file: include/curthread.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/dev.h,v
+Working file: include/dev.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/elf.h,v
+Working file: include/elf.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/emufs.h,v
+Working file: include/emufs.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/filedescriptor.h,v
+Working file: include/filedescriptor.h
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2012-03-11 09:42:27 -0400;  author: dwdkim;  state: Exp;  lines: +1 -1;  commitid: yRQnw4l7uE7wdtWv;
+changes from march 10
+----------------------------
+revision 1.2
+date: 2012-03-09 07:27:09 -0500;  author: dwdkim;  state: Exp;  lines: +18 -5;  commitid: 9D4M8KUidsAIRcWv;
+file operations almost complete. Run both scripts after update.
+----------------------------
+revision 1.1
+date: 2012-03-07 02:52:44 -0500;  author: dwdkim;  state: Exp;  commitid: 251Otn9HzWbzpVVv;
+Created data structures filedescriptor and filemanager
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/filemanager.h,v
+Working file: include/filemanager.h
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.5
+date: 2012-03-11 09:42:27 -0400;  author: dwdkim;  state: Exp;  lines: +24 -1;  commitid: yRQnw4l7uE7wdtWv;
+changes from march 10
+----------------------------
+revision 1.4
+date: 2012-03-09 07:27:09 -0500;  author: dwdkim;  state: Exp;  lines: +22 -5;  commitid: 9D4M8KUidsAIRcWv;
+file operations almost complete. Run both scripts after update.
+----------------------------
+revision 1.3
+date: 2012-03-08 19:26:30 -0500;  author: k39chen;  state: Exp;  lines: +3 -0;  commitid: v6cDTQhurHMuS8Wv;
+Factored default file descriptors into isolated function call
+----------------------------
+revision 1.2
+date: 2012-03-07 20:22:28 -0500;  author: dwdkim;  state: Exp;  lines: +14 -1;  commitid: h945yPxkG7cGd1Wv;
+implemented filedescriptor and filemanager
+----------------------------
+revision 1.1
+date: 2012-03-07 02:52:44 -0500;  author: dwdkim;  state: Exp;  commitid: 251Otn9HzWbzpVVv;
+Created data structures filedescriptor and filemanager
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/fs.h,v
+Working file: include/fs.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/lib.h,v
+Working file: include/lib.h
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.2
+date: 2012-03-12 17:04:02 -0400;  author: ycpoon;  state: Exp;  lines: +2 -0;  commitid: Irn9X6FVrxzTCDWv;
+Fixed broken build
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/pidmanager.h,v
+Working file: include/pidmanager.h
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2012-03-12 06:24:24 -0400;  author: dwdkim;  state: Exp;  lines: +15 -18;  commitid: vpMBZWFjY0yA5AWv;
+*** empty log message ***
+----------------------------
+revision 1.2
+date: 2012-03-12 03:34:48 -0400;  author: ycpoon;  state: Exp;  lines: +2 -1;  commitid: EkMSMOTyhOqr9zWv;
+Worked on processhandler.h and processhandler.c
+----------------------------
+revision 1.1
+date: 2012-03-12 02:25:02 -0400;  author: ycpoon;  state: Exp;  commitid: Zgi4uCAEAQHvLyWv;
+Added pidmanager.h and pidmanager.c. Does not work yet. Can't make pidmanager pm global across kernel.
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/pidmgr.h,v
+Working file: include/pidmgr.h
+head: 1.1
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 1;	selected revisions: 1
+description:
+----------------------------
+revision 1.1
+date: 2012-03-12 06:56:34 -0400;  author: dwdkim;  state: Exp;  commitid: Ck6mBUvmTulFgAWv;
+added pidmgr.h
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/processhandler.h,v
+Working file: include/processhandler.h
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 4;	selected revisions: 4
+description:
+----------------------------
+revision 1.4
+date: 2012-03-12 17:04:02 -0400;  author: ycpoon;  state: Exp;  lines: +3 -1;  commitid: Irn9X6FVrxzTCDWv;
+Fixed broken build
+----------------------------
+revision 1.3
+date: 2012-03-12 06:24:24 -0400;  author: dwdkim;  state: Exp;  lines: +7 -3;  commitid: vpMBZWFjY0yA5AWv;
+*** empty log message ***
+----------------------------
+revision 1.2
+date: 2012-03-12 03:34:48 -0400;  author: ycpoon;  state: Exp;  lines: +6 -13;  commitid: EkMSMOTyhOqr9zWv;
+Worked on processhandler.h and processhandler.c
+----------------------------
+revision 1.1
+date: 2012-03-12 03:13:03 -0400;  author: ycpoon;  state: Exp;  commitid: q4M9TQqHq2SY1zWv;
+Changed conf.kern
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/queue.h,v
+Working file: include/queue.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/scheduler.h,v
+Working file: include/scheduler.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/sfs.h,v
+Working file: include/sfs.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/stdarg.h,v
+Working file: include/stdarg.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/synch.h,v
+Working file: include/synch.h
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.3
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 6;	selected revisions: 6
+description:
+----------------------------
+revision 1.3
+date: 2012-02-13 21:32:34 -0500;  author: dwdkim;  state: Exp;  lines: +7 -8;  commitid: 2RuMm6FDNkVyl4Tv;
+Daniel's lock/cv/catmouse
+----------------------------
+revision 1.2
+date: 2012-02-13 18:04:46 -0500;  author: ycpoon;  state: Exp;  lines: +7 -0;  commitid: 7tANrZjXH6vbc3Tv;
+krista: testing repository by adding a file
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.3
+date: 2012-02-15 06:18:35 -0500;  author: k39chen;  state: Exp;  lines: +4 -8;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+----------------------------
+revision 1.1.1.2
+date: 2012-02-13 20:56:49 -0500;  author: dwdkim;  state: Exp;  lines: +7 -1;  commitid: E3LQ3mlXnY1j94Tv;
+Import of os161
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/syscall.h,v
+Working file: include/syscall.h
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 5;	selected revisions: 5
+description:
+----------------------------
+revision 1.4
+date: 2012-03-12 06:24:24 -0400;  author: dwdkim;  state: Exp;  lines: +1 -1;  commitid: vpMBZWFjY0yA5AWv;
+*** empty log message ***
+----------------------------
+revision 1.3
+date: 2012-03-09 07:27:09 -0500;  author: dwdkim;  state: Exp;  lines: +9 -9;  commitid: 9D4M8KUidsAIRcWv;
+file operations almost complete. Run both scripts after update.
+----------------------------
+revision 1.2
+date: 2012-02-15 17:00:41 -0500;  author: dwdkim;  state: Exp;  lines: +13 -1;  commitid: s9AM8o2t2amfMiTv;
+panic code
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/test.h,v
+Working file: include/test.h
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.2
+date: 2012-03-11 09:42:27 -0400;  author: dwdkim;  state: Exp;  lines: +1 -1;  commitid: yRQnw4l7uE7wdtWv;
+changes from march 10
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/thread.h,v
+Working file: include/thread.h
+head: 1.9
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.3
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 12;	selected revisions: 12
+description:
+----------------------------
+revision 1.9
+date: 2012-03-12 06:24:24 -0400;  author: dwdkim;  state: Exp;  lines: +2 -6;  commitid: vpMBZWFjY0yA5AWv;
+*** empty log message ***
+----------------------------
+revision 1.8
+date: 2012-03-12 02:25:02 -0400;  author: ycpoon;  state: Exp;  lines: +5 -0;  commitid: Zgi4uCAEAQHvLyWv;
+Added pidmanager.h and pidmanager.c. Does not work yet. Can't make pidmanager pm global across kernel.
+----------------------------
+revision 1.7
+date: 2012-03-11 22:41:34 -0400;  author: ycpoon;  state: Exp;  lines: +4 -1;  commitid: isyX9q0crJVJwxWv;
+Added comment.
+----------------------------
+revision 1.6
+date: 2012-03-11 20:19:34 -0400;  author: k39chen;  state: Exp;  lines: +2 -0;  commitid: odChxgXLrlG8KwWv;
+Added pid property to thread data structure
+----------------------------
+revision 1.5
+date: 2012-03-09 07:27:09 -0500;  author: dwdkim;  state: Exp;  lines: +1 -2;  commitid: 9D4M8KUidsAIRcWv;
+file operations almost complete. Run both scripts after update.
+----------------------------
+revision 1.4
+date: 2012-03-07 20:22:28 -0500;  author: dwdkim;  state: Exp;  lines: +5 -0;  commitid: h945yPxkG7cGd1Wv;
+implemented filedescriptor and filemanager
+----------------------------
+revision 1.3
+date: 2012-02-13 21:32:34 -0500;  author: dwdkim;  state: Exp;  lines: +7 -1;  commitid: 2RuMm6FDNkVyl4Tv;
+Daniel's lock/cv/catmouse
+----------------------------
+revision 1.2
+date: 2012-02-13 18:04:46 -0500;  author: ycpoon;  state: Exp;  lines: +1 -1;  commitid: 7tANrZjXH6vbc3Tv;
+krista: testing repository by adding a file
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.3
+date: 2012-02-15 06:18:35 -0500;  author: k39chen;  state: Exp;  lines: +1 -6;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+----------------------------
+revision 1.1.1.2
+date: 2012-02-13 20:56:49 -0500;  author: dwdkim;  state: Exp;  lines: +6 -0;  commitid: E3LQ3mlXnY1j94Tv;
+Import of os161
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/types.h,v
+Working file: include/types.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/uio.h,v
+Working file: include/uio.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/uw-vmstats.h,v
+Working file: include/uw-vmstats.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/version.h,v
+Working file: include/version.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/vfs.h,v
+Working file: include/vfs.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/vm.h,v
+Working file: include/vm.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/vnode.h,v
+Working file: include/vnode.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/kern/callno.h,v
+Working file: include/kern/callno.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/kern/errmsg.h,v
+Working file: include/kern/errmsg.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/kern/errno.h,v
+Working file: include/kern/errno.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/kern/ioctl.h,v
+Working file: include/kern/ioctl.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/kern/limits.h,v
+Working file: include/kern/limits.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/kern/sfs.h,v
+Working file: include/kern/sfs.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/kern/stat.h,v
+Working file: include/kern/stat.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/kern/types.h,v
+Working file: include/kern/types.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/include/kern/unistd.h,v
+Working file: include/kern/unistd.h
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/lib/array.c,v
+Working file: lib/array.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/lib/bitmap.c,v
+Working file: lib/bitmap.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/lib/copyinout.c,v
+Working file: lib/copyinout.c
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 6;	selected revisions: 6
+description:
+----------------------------
+revision 1.5
+date: 2012-03-12 17:18:50 -0400;  author: k39chen;  state: Exp;  lines: +0 -2;  commitid: nS9OBthUCD58IDWv;
+Fixed more stuff
+----------------------------
+revision 1.4
+date: 2012-03-12 17:04:02 -0400;  author: ycpoon;  state: Exp;  lines: +1 -1;  commitid: Irn9X6FVrxzTCDWv;
+Fixed broken build
+----------------------------
+revision 1.3
+date: 2012-03-12 06:40:35 -0400;  author: k39chen;  state: Exp;  lines: +3 -1;  commitid: 1RzPZAjSDl4bbAWv;
+added argument handling
+----------------------------
+revision 1.2
+date: 2012-03-12 06:24:24 -0400;  author: dwdkim;  state: Exp;  lines: +2 -0;  commitid: vpMBZWFjY0yA5AWv;
+*** empty log message ***
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/lib/kgets.c,v
+Working file: lib/kgets.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/lib/kheap.c,v
+Working file: lib/kheap.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/lib/kprintf.c,v
+Working file: lib/kprintf.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/lib/misc.c,v
+Working file: lib/misc.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/lib/ntoh.c,v
+Working file: lib/ntoh.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/lib/queue.c,v
+Working file: lib/queue.c
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.2
+date: 2012-03-12 14:53:01 -0400;  author: k39chen;  state: Exp;  lines: +10 -2;  commitid: 4clVwuktTcx5UCWv;
+Fixed shutdown crash
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/main/._main.c,v
+Working file: main/._main.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-02-15 06:18:36 -0500;  author: k39chen;  state: Exp;  commitid: XJ6NnnkK2AkZdfTv;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-02-15 06:18:36 -0500;  author: k39chen;  state: Exp;  lines: +0 -0;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/main/hello.c,v
+Working file: main/hello.c
+head: 1.1
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.2
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 23:56:30 -0500;  author: ycpoon;  state: Exp;  commitid: AdRJv2eyigKFo4Ov;
+branches:  1.1.1;
+added hello function to the boot sequence
+----------------------------
+revision 1.1.1.2
+date: 2012-02-15 06:18:36 -0500;  author: k39chen;  state: Exp;  lines: +1 -1;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+----------------------------
+revision 1.1.1.1
+date: 2012-02-13 20:56:49 -0500;  author: dwdkim;  state: Exp;  lines: +1 -1;  commitid: E3LQ3mlXnY1j94Tv;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/main/main.c,v
+Working file: main/main.c
+head: 1.4
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.3
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 7;	selected revisions: 7
+description:
+----------------------------
+revision 1.4
+date: 2012-03-12 14:53:01 -0400;  author: k39chen;  state: Exp;  lines: +1 -0;  commitid: 4clVwuktTcx5UCWv;
+Fixed shutdown crash
+----------------------------
+revision 1.3
+date: 2012-03-06 23:37:01 -0500;  author: k39chen;  state: Exp;  lines: +1 -1;  commitid: 3LqFAXTldmSpkUVv;
+TEAM NAME
+----------------------------
+revision 1.2
+date: 2012-01-05 23:56:30 -0500;  author: ycpoon;  state: Exp;  lines: +7 -1;  commitid: AdRJv2eyigKFo4Ov;
+added hello function to the boot sequence
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.3
+date: 2012-02-15 06:18:35 -0500;  author: k39chen;  state: Exp;  lines: +8 -4;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+----------------------------
+revision 1.1.1.2
+date: 2012-02-13 20:56:49 -0500;  author: dwdkim;  state: Exp;  lines: +6 -0;  commitid: E3LQ3mlXnY1j94Tv;
+Import of os161
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/main/menu.c,v
+Working file: main/menu.c
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 6;	selected revisions: 6
+description:
+----------------------------
+revision 1.5
+date: 2012-03-12 14:53:01 -0400;  author: k39chen;  state: Exp;  lines: +1 -0;  commitid: 4clVwuktTcx5UCWv;
+Fixed shutdown crash
+----------------------------
+revision 1.4
+date: 2012-03-12 06:40:35 -0400;  author: k39chen;  state: Exp;  lines: +3 -1;  commitid: 1RzPZAjSDl4bbAWv;
+added argument handling
+----------------------------
+revision 1.3
+date: 2012-03-11 20:19:34 -0400;  author: k39chen;  state: Exp;  lines: +1 -4;  commitid: odChxgXLrlG8KwWv;
+Added pid property to thread data structure
+----------------------------
+revision 1.2
+date: 2012-03-11 09:42:27 -0400;  author: dwdkim;  state: Exp;  lines: +6 -3;  commitid: yRQnw4l7uE7wdtWv;
+changes from march 10
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/test/arraytest.c,v
+Working file: test/arraytest.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/test/bitmaptest.c,v
+Working file: test/bitmaptest.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/test/fstest.c,v
+Working file: test/fstest.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/test/malloctest.c,v
+Working file: test/malloctest.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/test/nettest.c,v
+Working file: test/nettest.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/test/queuetest.c,v
+Working file: test/queuetest.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/test/synchtest.c,v
+Working file: test/synchtest.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/test/threadtest.c,v
+Working file: test/threadtest.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/test/tt3.c,v
+Working file: test/tt3.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/thread/._synch.c,v
+Working file: thread/._synch.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-02-15 06:18:36 -0500;  author: k39chen;  state: Exp;  commitid: XJ6NnnkK2AkZdfTv;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-02-15 06:18:36 -0500;  author: k39chen;  state: Exp;  lines: +0 -0;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/thread/._thread.c,v
+Working file: thread/._thread.c
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.2
+date: 2012-03-12 02:25:02 -0400;  author: ycpoon;  state: Exp;  lines: +1 -1;  commitid: Zgi4uCAEAQHvLyWv;
+Added pidmanager.h and pidmanager.c. Does not work yet. Can't make pidmanager pm global across kernel.
+----------------------------
+revision 1.1
+date: 2012-02-15 06:18:36 -0500;  author: k39chen;  state: Exp;  commitid: XJ6NnnkK2AkZdfTv;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-02-15 06:18:36 -0500;  author: k39chen;  state: Exp;  lines: +0 -0;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/thread/hardclock.c,v
+Working file: thread/hardclock.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/thread/pidmanager.c,v
+Working file: thread/pidmanager.c
+head: 1.6
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 6;	selected revisions: 6
+description:
+----------------------------
+revision 1.6
+date: 2012-03-12 15:47:16 -0400;  author: k39chen;  state: Exp;  lines: +1 -1;  commitid: T2LAES5bqDEHcDWv;
+Small fixes to accomodate test scripts
+----------------------------
+revision 1.5
+date: 2012-03-12 14:53:01 -0400;  author: k39chen;  state: Exp;  lines: +3 -1;  commitid: 4clVwuktTcx5UCWv;
+Fixed shutdown crash
+----------------------------
+revision 1.4
+date: 2012-03-12 06:40:35 -0400;  author: k39chen;  state: Exp;  lines: +2 -1;  commitid: 1RzPZAjSDl4bbAWv;
+added argument handling
+----------------------------
+revision 1.3
+date: 2012-03-12 06:24:24 -0400;  author: dwdkim;  state: Exp;  lines: +87 -74;  commitid: vpMBZWFjY0yA5AWv;
+*** empty log message ***
+----------------------------
+revision 1.2
+date: 2012-03-12 03:34:48 -0400;  author: ycpoon;  state: Exp;  lines: +7 -6;  commitid: EkMSMOTyhOqr9zWv;
+Worked on processhandler.h and processhandler.c
+----------------------------
+revision 1.1
+date: 2012-03-12 03:13:03 -0400;  author: ycpoon;  state: Exp;  commitid: q4M9TQqHq2SY1zWv;
+Changed conf.kern
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/thread/processhandler.c,v
+Working file: thread/processhandler.c
+head: 1.3
+branch:
+locks: strict
+access list:
+symbolic names:
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.3
+date: 2012-03-12 06:24:24 -0400;  author: dwdkim;  state: Exp;  lines: +17 -9;  commitid: vpMBZWFjY0yA5AWv;
+*** empty log message ***
+----------------------------
+revision 1.2
+date: 2012-03-12 03:34:48 -0400;  author: ycpoon;  state: Exp;  lines: +33 -0;  commitid: EkMSMOTyhOqr9zWv;
+Worked on processhandler.h and processhandler.c
+----------------------------
+revision 1.1
+date: 2012-03-12 03:13:03 -0400;  author: ycpoon;  state: Exp;  commitid: q4M9TQqHq2SY1zWv;
+Changed conf.kern
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/thread/scheduler.c,v
+Working file: thread/scheduler.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/thread/synch.c,v
+Working file: thread/synch.c
+head: 1.5
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.3
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 8;	selected revisions: 8
+description:
+----------------------------
+revision 1.5
+date: 2012-03-12 17:18:50 -0400;  author: k39chen;  state: Exp;  lines: +5 -3;  commitid: nS9OBthUCD58IDWv;
+Fixed more stuff
+----------------------------
+revision 1.4
+date: 2012-03-07 20:22:28 -0500;  author: dwdkim;  state: Exp;  lines: +2 -0;  commitid: h945yPxkG7cGd1Wv;
+implemented filedescriptor and filemanager
+----------------------------
+revision 1.3
+date: 2012-02-13 21:32:34 -0500;  author: dwdkim;  state: Exp;  lines: +111 -118;  commitid: 2RuMm6FDNkVyl4Tv;
+Daniel's lock/cv/catmouse
+----------------------------
+revision 1.2
+date: 2012-02-13 18:04:46 -0500;  author: ycpoon;  state: Exp;  lines: +115 -39;  commitid: 7tANrZjXH6vbc3Tv;
+krista: testing repository by adding a file
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.3
+date: 2012-02-15 06:18:36 -0500;  author: k39chen;  state: Exp;  lines: +90 -66;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+----------------------------
+revision 1.1.1.2
+date: 2012-02-13 20:56:49 -0500;  author: dwdkim;  state: Exp;  lines: +81 -12;  commitid: E3LQ3mlXnY1j94Tv;
+Import of os161
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/thread/thread.c,v
+Working file: thread/thread.c
+head: 1.7
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.3
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 10;	selected revisions: 10
+description:
+----------------------------
+revision 1.7
+date: 2012-03-12 14:53:01 -0400;  author: k39chen;  state: Exp;  lines: +1 -1;  commitid: 4clVwuktTcx5UCWv;
+Fixed shutdown crash
+----------------------------
+revision 1.6
+date: 2012-03-12 06:24:24 -0400;  author: dwdkim;  state: Exp;  lines: +16 -11;  commitid: vpMBZWFjY0yA5AWv;
+*** empty log message ***
+----------------------------
+revision 1.5
+date: 2012-03-12 02:25:02 -0400;  author: ycpoon;  state: Exp;  lines: +24 -3;  commitid: Zgi4uCAEAQHvLyWv;
+Added pidmanager.h and pidmanager.c. Does not work yet. Can't make pidmanager pm global across kernel.
+----------------------------
+revision 1.4
+date: 2012-03-07 20:22:28 -0500;  author: dwdkim;  state: Exp;  lines: +3 -0;  commitid: h945yPxkG7cGd1Wv;
+implemented filedescriptor and filemanager
+----------------------------
+revision 1.3
+date: 2012-02-13 21:32:34 -0500;  author: dwdkim;  state: Exp;  lines: +22 -21;  commitid: 2RuMm6FDNkVyl4Tv;
+Daniel's lock/cv/catmouse
+----------------------------
+revision 1.2
+date: 2012-02-13 18:04:46 -0500;  author: ycpoon;  state: Exp;  lines: +29 -0;  commitid: 7tANrZjXH6vbc3Tv;
+krista: testing repository by adding a file
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.3
+date: 2012-02-15 06:18:36 -0500;  author: k39chen;  state: Exp;  lines: +22 -21;  commitid: XJ6NnnkK2AkZdfTv;
+Import of os161
+----------------------------
+revision 1.1.1.2
+date: 2012-02-13 20:56:49 -0500;  author: dwdkim;  state: Exp;  lines: +30 -0;  commitid: E3LQ3mlXnY1j94Tv;
+Import of os161
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/userprog/loadelf.c,v
+Working file: userprog/loadelf.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/userprog/runprogram.c,v
+Working file: userprog/runprogram.c
+head: 1.7
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 8;	selected revisions: 8
+description:
+----------------------------
+revision 1.7
+date: 2012-03-12 15:47:16 -0400;  author: k39chen;  state: Exp;  lines: +6 -1;  commitid: T2LAES5bqDEHcDWv;
+Small fixes to accomodate test scripts
+----------------------------
+revision 1.6
+date: 2012-03-12 06:40:35 -0400;  author: k39chen;  state: Exp;  lines: +49 -30;  commitid: 1RzPZAjSDl4bbAWv;
+added argument handling
+----------------------------
+revision 1.5
+date: 2012-03-12 06:24:24 -0400;  author: dwdkim;  state: Exp;  lines: +21 -5;  commitid: vpMBZWFjY0yA5AWv;
+*** empty log message ***
+----------------------------
+revision 1.4
+date: 2012-03-11 20:19:34 -0400;  author: k39chen;  state: Exp;  lines: +16 -16;  commitid: odChxgXLrlG8KwWv;
+Added pid property to thread data structure
+----------------------------
+revision 1.3
+date: 2012-03-11 19:21:26 -0400;  author: k39chen;  state: Exp;  lines: +11 -2;  commitid: Efkwc0erZXLbqwWv;
+Added search script
+----------------------------
+revision 1.2
+date: 2012-03-11 09:42:27 -0400;  author: dwdkim;  state: Exp;  lines: +13 -7;  commitid: yRQnw4l7uE7wdtWv;
+changes from march 10
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/userprog/uio.c,v
+Working file: userprog/uio.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/vm/addrspace.c,v
+Working file: vm/addrspace.c
+head: 1.2
+branch:
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 3;	selected revisions: 3
+description:
+----------------------------
+revision 1.2
+date: 2012-03-11 20:19:34 -0400;  author: k39chen;  state: Exp;  lines: +8 -20;  commitid: odChxgXLrlG8KwWv;
+Added pid property to thread data structure
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================
+
+RCS file: /u2/ycpoon/cvsroot/cs350/os161-1.11/kern/vm/uw-vmstats.c,v
+Working file: vm/uw-vmstats.c
+head: 1.1
+branch: 1.1.1
+locks: strict
+access list:
+symbolic names:
+	os161-1_11: 1.1.1.1
+	os161: 1.1.1
+keyword substitution: kv
+total revisions: 2;	selected revisions: 2
+description:
+----------------------------
+revision 1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  commitid: PSgoMpKAAPrGY2Ov;
+branches:  1.1.1;
+Initial revision
+----------------------------
+revision 1.1.1.1
+date: 2012-01-05 19:40:02 -0500;  author: ycpoon;  state: Exp;  lines: +0 -0;  commitid: PSgoMpKAAPrGY2Ov;
+Import of os161
+=============================================================================

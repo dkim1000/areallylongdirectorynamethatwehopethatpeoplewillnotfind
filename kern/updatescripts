@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd ../testbin/${1}
+make clean
+make depend
+make
+make install
+

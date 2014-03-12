@@ -1,0 +1,10 @@
+#!/bin/bash
+
+<<<<<<< clean
+ASSIGNMENT_NUMBER=3
+=======
+ASSIGNMENT_NUMBER=${1}
+>>>>>>> 1.2
+
+cd compile/ASST${ASSIGNMENT_NUMBER}
+make clean
