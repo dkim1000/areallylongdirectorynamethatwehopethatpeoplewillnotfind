@@ -30,9 +30,9 @@ void fddestroy(struct filedescriptor *file){
 	file->addr = 1;
 	
 	}else if (file->fdopen <= 1){
-	file->fdopen == 0; //closed
+	file->fdopen = 0; //closed
 	vfs_close(file->fdvnode);
-	kfree(file)
+	kfree(file);
 	file->addr = 0;
 	}
 

@@ -8,9 +8,9 @@ struct fdManager
 	int fdm_next;
 };
 
-struct fdManager * make_fdManager();
+struct fdManager * make_fdManager(void);
 
-int initialize_fdManager(struct fdManager *manager);
+int initialize_fdManager(struct fdManager * manager);
 struct filedescriptor * getFileDescriptor(struct fdManager *manager, int index);
 int addDescriptor(struct fdManager *manager, struct filedescriptor *descriptor);
 int removeDescriptor(struct fdManager * manager, int index);
