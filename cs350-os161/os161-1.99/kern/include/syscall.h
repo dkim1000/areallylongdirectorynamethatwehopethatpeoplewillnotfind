@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2000, 2001, 2002, 2003, 2004, 2005, 2008, 2009
- *	The President and Fellows of Harvard College.
+ *  The President and Fellows of Harvard College.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -29,7 +29,7 @@
 
 #ifndef _SYSCALL_H_
 #define _SYSCALL_H_
-
+//#include <opt-A2.h>
 
 struct trapframe; /* from <machine/trapframe.h> */
 
@@ -48,7 +48,7 @@ void enter_forked_process(struct trapframe *tf);
 
 /* Enter user mode. Does not return. */
 void enter_new_process(int argc, userptr_t argv, vaddr_t stackptr,
-		       vaddr_t entrypoint);
+               vaddr_t entrypoint);
 
 
 /*
@@ -58,9 +58,11 @@ void enter_new_process(int argc, userptr_t argv, vaddr_t stackptr,
 int sys_reboot(int code);
 int sys___time(userptr_t user_seconds, userptr_t user_nanoseconds);
 
-#ifdef UW
+//#if OPT_A2
 int sys_write(int fdesc,userptr_t ubuf,unsigned int nbytes,int *retval);
 void sys__exit(int exitcode);
-#endif // UW
+int sys_open(const char *filename, int flags, unsigned int mode);// int *retval);
+//int a(int b);
+//#endif // UW
 
 #endif /* _SYSCALL_H_ */

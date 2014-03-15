@@ -1,5 +1,5 @@
-#ifndef FILEMANAGER_H_
-#define FILEMANAGER_H_
+#ifndef _FDMANAGER_H_
+#define _FDMANAGER_H_
 
 struct fdManager
 {
@@ -11,10 +11,12 @@ struct fdManager
 struct fdManager * make_fdManager();
 
 int initialize_fdManager(struct fdManager *manager);
-struct filedescriptor * getFileDescriptor(fdManager *manager, int index);
+struct filedescriptor * getFileDescriptor(struct fdManager *manager, int index);
 int addDescriptor(struct fdManager *manager, struct filedescriptor *descriptor);
 int removeDescriptor(struct fdManager * manager, int index);
 struct fdManager * clone(struct fdManager *manager);
 int getSize(struct fdManager * manager);
 void destroy(struct fdManager * manager);
 void print(struct fdManager * manager);
+
+#endif /* _FDMANAGER_H_ */

@@ -8,12 +8,9 @@ struct filedescriptor{
         int addr;
         int fdoff;
         int fdopen;
-
-
-
 };
 
-struct filedescriptor *fdcreate(int off, unsigned int mode, char *nameOfLock, struct vnode *curvnode);
+struct filedescriptor * fdcreate(int off, unsigned int mode, char *nameOfLock, struct vnode *curvnode);
 
 void fddestroy(struct filedescriptor *file);
 #endif

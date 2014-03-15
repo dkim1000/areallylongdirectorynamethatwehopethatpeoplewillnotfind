@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2000, 2001, 2002, 2003, 2004, 2005, 2008, 2009
- *	The President and Fellows of Harvard College.
+ *  The President and Fellows of Harvard College.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -35,7 +35,25 @@
 #include <thread.h>
 #include <current.h>
 #include <syscall.h>
+#include "opt-A2.h"
 
+
+//#if OPT_A2
+#include <thread.h>
+//#include <curthread.h>
+#include <kern/unistd.h>
+#include "fdManager.h"
+//#include <pidmanager.h>
+//#include <processhandler.h>
+#include "filedescriptor.h"
+#include <uio.h>
+#include <vnode.h>
+#include <synch.h>
+#include <vfs.h>
+//#include <pidmgr.h>
+#include <addrspace.h>
+#include <test.h>
+//#endif
 
 /*
  * System call dispatcher.
@@ -75,89 +93,221 @@
  * stack, starting at sp+16 to skip over the slots for the
  * registerized values, with copyin().
  */
+
+
+
+/*
+int sys_open(const char* filename, int flags, unsigned int mode){ //(int*) (&retval)){
+        (void) mode;
+
+        struct vnode *vNode;
+        struct filedescriptor *f_desc;
+        int returnval = vfs_open((void*)filename, flags, 0, &vNode);
+        if(returnval){
+                return (returnval)*(-1);
+        }else{
+        char nameOfLock[128];
+        strcpy(nameOfLock, "lock_");
+        strcat(nameOfLock, filename);
+        f_desc = fdcreate(0,flags ,nameOfLock, vNode);
+
+        int a;
+        a = addDescriptor((curthread->t_fileManager), f_desc);
+  
+
+return a;
+}
+
+}*/
+
+
+
+
+
 void
 syscall(struct trapframe *tf)
 {
-	int callno;
-	int32_t retval;
-	int err;
+    int callno;
+    int32_t retval;
+    int err;
 
-	KASSERT(curthread != NULL);
-	KASSERT(curthread->t_curspl == 0);
-	KASSERT(curthread->t_iplhigh_count == 0);
+    KASSERT(curthread != NULL);
+    KASSERT(curthread->t_curspl == 0);
+    KASSERT(curthread->t_iplhigh_count == 0);
 
-	callno = tf->tf_v0;
+    callno = tf->tf_v0;
 
-	/*
-	 * Initialize retval to 0. Many of the system calls don't
-	 * really return a value, just 0 for success and -1 on
-	 * error. Since retval is the value returned on success,
-	 * initialize it to 0 by default; thus it's not necessary to
-	 * deal with it except for calls that return other values, 
-	 * like write.
-	 */
+    /*
+     * Initialize retval to 0. Many of the system calls don't
+     * really return a value, just 0 for success and -1 on
+     * error. Since retval is the value returned on success,
+     * initialize it to 0 by default; thus it's not necessary to
+     * deal with it except for calls that return other values, 
+     * like write.
+     */
 
-	retval = 0;
-
-	switch (callno) {
-	    case SYS_reboot:
-		err = sys_reboot(tf->tf_a0);
-		break;
-
-	    case SYS___time:
-		err = sys___time((userptr_t)tf->tf_a0,
-				 (userptr_t)tf->tf_a1);
-		break;
-#ifdef UW
-	case SYS_write:
-	  err = sys_write((int)tf->tf_a0,
-			  (userptr_t)tf->tf_a1,
-			  (int)tf->tf_a2,
-			  (int *)(&retval));
-	  break;
-	case SYS__exit:
-	  sys__exit((int)tf->tf_a0);
-	  /* sys__exit does not return, execution should not get here */
-	  panic("unexpected return from sys__exit");
-	  break;
-#endif // UW
-
-	    /* Add stuff here */
- 
-	default:
-	  kprintf("Unknown syscall %d\n", callno);
-	  err = ENOSYS;
-	  break;
-	}
-
-
-	if (err) {
-		/*
-		 * Return the error code. This gets converted at
-		 * userlevel to a return value of -1 and the error
-		 * code in errno.
-		 */
-		tf->tf_v0 = err;
-		tf->tf_a3 = 1;      /* signal an error */
-	}
-	else {
-		/* Success. */
-		tf->tf_v0 = retval;
-		tf->tf_a3 = 0;      /* signal no error */
-	}
-	
-	/*
-	 * Now, advance the program counter, to avoid restarting
-	 * the syscall over and over again.
-	 */
-	
-	tf->tf_epc += 4;
-
-	/* Make sure the syscall code didn't forget to lower spl */
-	KASSERT(curthread->t_curspl == 0);
-	/* ...or leak any spinlocks */
-	KASSERT(curthread->t_iplhigh_count == 0);
+    retval = 0;
+//#if OPT_A2
+/*int a(int b){
+return b;
 }
+int sys_open(const char* filename, int flags, unsigned int mode){ //(int*) (&retval)){
+    (void) mode;
+
+        struct vnode *vNode;
+        struct filedescriptor *f_desc;
+        int returnval = vfs_open((void*)filename, flags, 0, &vNode);
+        if(returnval){
+                return (returnval)*(-1);
+        }else{
+        char nameOfLock[128];
+        strcpy(nameOfLock, "lock_");
+        strcat(nameOfLock, filename);
+        f_desc = fdcreate(0,flags ,vNode, nameOfLock);
+
+        int a;
+       */
+//#endif
+
+    switch (callno) {
+        case SYS_reboot:
+        err = sys_reboot(tf->tf_a0);
+        break;
+
+        case SYS___time:
+        err = sys___time((userptr_t)tf->tf_a0,
+                 (userptr_t)tf->tf_a1);
+        break;
+//#if OPT_A2
+    case SYS_write:
+      err = sys_write((int)tf->tf_a0,
+              (userptr_t)tf->tf_a1,
+              (int)tf->tf_a2,
+              (int *)(&retval));
+      break;
+    case SYS__exit:
+      sys__exit((int)tf->tf_a0);
+      /* sys__exit does not return, execution should not get here */
+      panic("unexpected return from sys__exit");
+      break;
+    
+    case SYS_open:
+    err = sys_open((char *) tf->tf_a0, (int) tf->tf_a1, tf->tf_a2);// (int *)(&retval));
+    panic(" unexpected return from sys__open");
+    break;
+    
+    
+//#endif // UW
+
+
+//#if OPT_A2
+/*
+//added 4:55 pm march 13
+int sys_write(int fd, const void *buffer , size_t numbytes, int val){
+
+int value;
+int writtenBytes;
+struct filedescriptor *f_desc;
+struct uio myuio;
+
+    if(!buffer){
+        return (EFAULT)*(-1);
+    }
+    f_desc = filemanager_get((struct filemanager *)curthread->t_fileManager, fd);
+    
+        if(f_desc == NULL){
+        return (EBADF)*(-1);
+        }
+        if(f_desc->fd_mode == O_WRONLY){
+        return (EBADF)*(-1);
+        }
+        myuio.uio_iov->iov_union.iov_ubase = buffer;
+        myuio.uio_iov->iov_len = numbytes;
+        myuio.uio_offset = f_desc->fd_offset;
+        myuio.uio_resid = numbytes;
+        myuio.uio_segflg = UIO_USERSPACE;
+        myuio.uio_rw = UIO_READ;
+        myuio.uio_space = curthread->t_vmspace;
+        
+        writtenBytes = myuio.uio_resid;
+        
+        lock_acquire(f_desc->fd_lock);
+        value = VOP_READ(f_desc->fd_vnode, &myuio);
+        lock_release(f_desc->fd_lock);
+        
+        writtenBytes = writtenBytes - myui.uio_resid;
+        
+        if(writtenBytes == 0){
+        return 0;
+        }
+        f_desc->fd_offset = f_desc->fd_offset + numBytes;
+        if(numBytes > 0){
+        retval = numBytes;
+        numBytes = 0;
+        }
+        return  numBytes;
+        
+ }*/       
+//#endif
+        /* Add stuff here */
+ 
+    default:
+      kprintf("Unknown syscall %d\n", callno);
+      err = ENOSYS;
+      break;
+    }
+
+
+    if (err) {
+        /*
+         * Return the error code. This gets converted at
+         * userlevel to a return value of -1 and the error
+         * code in errno.
+         */
+        tf->tf_v0 = err;
+        tf->tf_a3 = 1;      /* signal an error */
+    }
+    else {
+        /* Success. */
+        tf->tf_v0 = retval;
+        tf->tf_a3 = 0;      /* signal no error */
+    }
+    
+    /*
+     * Now, advance the program counter, to avoid restarting
+     * the syscall over and over again.
+     */
+    
+    tf->tf_epc += 4;
+
+    /* Make sure the syscall code didn't forget to lower spl */
+    KASSERT(curthread->t_curspl == 0);
+    /* ...or leak any spinlocks */
+    KASSERT(curthread->t_iplhigh_count == 0);
+}
+int sys_open(const char* filename, int flags, unsigned int mode){
+    (void) mode;
+        struct vnode *vNode;
+        struct filedescriptor *f_desc;
+        int returnval = vfs_open((void*)filename, flags, 0, &vNode);
+        if(returnval){
+                return (returnval)*(-1);
+        }else{
+        char nameOfLock[128];
+        strcpy(nameOfLock, "lock_");
+        strcat(nameOfLock, filename);
+
+	f_desc = fdcreate(0,flags , nameOfLock, vNode);
+
+        int a;
+        a = addDescriptor((curthread->t_fdManager), f_desc);
+       
+        return a;
+        
+
+		}
+}
+//#endif
 
 /*
  * Enter user mode for a newly forked process.
@@ -170,5 +320,5 @@ syscall(struct trapframe *tf)
 void
 enter_forked_process(struct trapframe *tf)
 {
-	(void)tf;
+    (void)tf;
 }

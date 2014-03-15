@@ -385,7 +385,7 @@ file      syscall/file_syscalls.c
 
 file      startup/main.c
 file      startup/menu.c
-file	  startup/hello.c
+file      startup/hello.c
 
 ########################################
 #                                      #
@@ -448,6 +448,8 @@ file    test/uw-tests.c
 defoption A0
 defoption A1
 defoption A2
+file		vfs/filedescriptor.c
+file		vfs/fdManager.c
 # UW For A3 use the stats tracking code provided
 defoption A3
    file    vm/uw-vmstats.c
