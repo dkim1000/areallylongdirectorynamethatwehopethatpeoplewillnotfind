@@ -3,7 +3,7 @@
 
 struct fdManager
 {
-	struct array *fdm_data;		// the handles to the file descriptors
+	struct array *fdm_descriptors;		// the handles to the file descriptors
 	int fdm_initialized;		// indicates if the file manager has been initialized
 	int fdm_next;
 };
