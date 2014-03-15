@@ -1,5 +1,11 @@
 // fdManager.c
 
+
+#include <array.h>
+#include <vfs.h>
+#include <filedescriptor.h>
+#include <filemanager.h>
+
 struct fdManager * make_fdManager() {
 	struct fdManager *manager;
 
