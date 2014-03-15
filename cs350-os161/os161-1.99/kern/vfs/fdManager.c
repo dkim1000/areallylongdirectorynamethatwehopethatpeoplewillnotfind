@@ -103,9 +103,9 @@ struct filedescriptor * getFileDescriptor(struct fdManager *manager, int index) 
 
 int addDescriptor(struct fdManager *manager, struct filedescriptor *descriptor) {
 	
-	if(manager->fdm_initialized == 1) {
-		return -1;
-	}
+        if(manager->fdm_initialized == 0) {
+	  initialize_fdManager(manager);
+        }
 
 	int mokval;
 

@@ -50,6 +50,7 @@
 #include <addrspace.h>
 #include <mainbus.h>
 #include <vnode.h>
+#include <fdManager.h>
 
 #include "opt-synchprobs.h"
 
@@ -150,7 +151,7 @@ thread_create(const char *name)
 	thread->t_iplhigh_count = 1; /* corresponding to t_curspl */
 
 	/* If you add to struct thread, be sure to initialize here */
-
+	thread->t_fdManager = make_fdManager();
 	return thread;
 }
 
