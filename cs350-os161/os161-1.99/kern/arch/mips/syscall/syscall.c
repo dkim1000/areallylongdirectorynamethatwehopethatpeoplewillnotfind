@@ -94,36 +94,6 @@
  * registerized values, with copyin().
  */
 
-
-
-/*
-int sys_open(const char* filename, int flags, unsigned int mode){ //(int*) (&retval)){
-        (void) mode;
-
-        struct vnode *vNode;
-        struct filedescriptor *f_desc;
-        int returnval = vfs_open((void*)filename, flags, 0, &vNode);
-        if(returnval){
-                return (returnval)*(-1);
-        }else{
-        char nameOfLock[128];
-        strcpy(nameOfLock, "lock_");
-        strcat(nameOfLock, filename);
-        f_desc = fdcreate(0,flags ,nameOfLock, vNode);
-
-        int a;
-        a = addDescriptor((curthread->t_fileManager), f_desc);
-  
-
-return a;
-}
-
-}*/
-
-
-
-
-
 void
 syscall(struct trapframe *tf)
 {
@@ -147,27 +117,6 @@ syscall(struct trapframe *tf)
      */
 
     retval = 0;
-//#if OPT_A2
-/*int a(int b){
-return b;
-}
-int sys_open(const char* filename, int flags, unsigned int mode){ //(int*) (&retval)){
-    (void) mode;
-
-        struct vnode *vNode;
-        struct filedescriptor *f_desc;
-        int returnval = vfs_open((void*)filename, flags, 0, &vNode);
-        if(returnval){
-                return (returnval)*(-1);
-        }else{
-        char nameOfLock[128];
-        strcpy(nameOfLock, "lock_");
-        strcat(nameOfLock, filename);
-        f_desc = fdcreate(0,flags ,vNode, nameOfLock);
-
-        int a;
-       */
-//#endif
 
     switch (callno) {
         case SYS_reboot:
@@ -192,14 +141,15 @@ int sys_open(const char* filename, int flags, unsigned int mode){ //(int*) (&ret
       break;
     
     case SYS_open:
-    err = sys_open((char *) tf->tf_a0, (int) tf->tf_a1, tf->tf_a2);// (int *)(&retval));
-    if(err > 0) {
-      retval = err;
-      err = 0;
-    }
-    //panic(" unexpected return from sys__open");
-    break;
-    
+        err = sys_open((char *) tf->tf_a0, (int) tf->tf_a1, tf->tf_a2);// (int *)(&retval));
+        if(err > 0) {
+            retval = err;
+            err = 0;
+        }
+        break;
+    case SYS_close:
+        err = sys_close(tf->tf_a0);
+        break;
     
 //#endif // UW
 
@@ -289,28 +239,28 @@ struct uio myuio;
     /* ...or leak any spinlocks */
     KASSERT(curthread->t_iplhigh_count == 0);
 }
-int sys_open(const char* filename, int flags, unsigned int mode){
-    (void) mode;
-        struct vnode *vNode;
-        struct filedescriptor *f_desc;
-        int returnval = vfs_open((void*)filename, flags, 0, &vNode);
-        if(returnval){
-                return (returnval)*(-1);
-        }else{
-        char nameOfLock[128];
-        strcpy(nameOfLock, "lock_");
-        strcat(nameOfLock, filename);
-
-	f_desc = fdcreate(0,flags , nameOfLock, vNode);
-
-        int a;
-        a = addDescriptor((curthread->t_fdManager), f_desc);
-        kprintf("%d\n", a);
-        return a;
-        
-
-		}
-}
+//int sys_open(const char* filename, int flags, unsigned int mode){
+//    (void) mode;
+//        struct vnode *vNode;
+//        struct filedescriptor *f_desc;
+//        int returnval = vfs_open((void*)filename, flags, 0, &vNode);
+//        if(returnval){
+//                return (returnval)*(-1);
+//        }else{
+//        char nameOfLock[128];
+//        strcpy(nameOfLock, "lock_");
+//        strcat(nameOfLock, filename);
+//
+//	f_desc = fdcreate(0,flags , nameOfLock, vNode);
+//
+//        int a;
+//        a = addDescriptor((curthread->t_fdManager), f_desc);
+//        kprintf("%d\n", a);
+//        return a;
+//        
+//
+//		}
+//}
 //#endif
 
 /*

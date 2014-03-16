@@ -9,6 +9,12 @@
 #include <current.h>
 #include <proc.h>
 
+#include <fdManager.h>
+#include <filedescriptor.h>
+#include <kern/fcntl.h>
+#include <thread.h>
+#include <synch.h>
+
 /* handler for write() system call                  */
 /*
  * n.b.
@@ -58,3 +64,38 @@ sys_write(int fdesc,userptr_t ubuf,unsigned int nbytes,int *retval)
   KASSERT(*retval >= 0);
   return 0;
 }
+
+int sys_open(const char* filename, int flags, unsigned int mode){
+    (void) mode;
+    struct vnode *vNode;
+    struct filedescriptor *f_desc;
+    int returnval = vfs_open((void*)filename, flags, 0, &vNode);
+    if(returnval){
+        return (returnval)*(-1);
+    }else{
+        char nameOfLock[128];
+        strcpy(nameOfLock, "lock_");
+        strcat(nameOfLock, filename);
+        
+        f_desc = fdcreate(0,flags , nameOfLock, vNode);
+        
+        int a;
+        a = addDescriptor((curthread->t_fdManager), f_desc);
+        kprintf("%d\n", a);
+        return a;
+        
+        
+    }
+}
+
+int sys_close(int num){
+    
+    int returnVal;
+    returnVal = removeDescriptor((struct fdManager *)curthread->t_fdManager, num);
+    
+    if(returnVal){
+        return (-1)*(returnVal);
+    }
+    return 0;
+}
+
