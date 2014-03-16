@@ -133,6 +133,8 @@ syscall(struct trapframe *tf)
               (userptr_t)tf->tf_a1,
               (int)tf->tf_a2,
               (int *)(&retval));
+
+
       break;
     case SYS__exit:
       sys__exit((int)tf->tf_a0);
@@ -150,60 +152,18 @@ syscall(struct trapframe *tf)
     case SYS_close:
         err = sys_close(tf->tf_a0);
         break;
+
+  case SYS_read:
+    err = sys_read((int)tf->tf_a0, (userptr_t)tf->tf_a1, (int)tf->tf_a2, (int *)(&retval));
     
-//#endif // UW
+    //kprintf("\n\n\nniggas\n%d\nin paris\n\n\n",err);
 
-
-//#if OPT_A2
-/*
-//added 4:55 pm march 13
-int sys_write(int fd, const void *buffer , size_t numbytes, int val){
-
-int value;
-int writtenBytes;
-struct filedescriptor *f_desc;
-struct uio myuio;
-
-    if(!buffer){
-        return (EFAULT)*(-1);
+    if (err > 0){
+      retval = err;
+      err = 0;
     }
-    f_desc = filemanager_get((struct filemanager *)curthread->t_fileManager, fd);
+  break;
     
-        if(f_desc == NULL){
-        return (EBADF)*(-1);
-        }
-        if(f_desc->fd_mode == O_WRONLY){
-        return (EBADF)*(-1);
-        }
-        myuio.uio_iov->iov_union.iov_ubase = buffer;
-        myuio.uio_iov->iov_len = numbytes;
-        myuio.uio_offset = f_desc->fd_offset;
-        myuio.uio_resid = numbytes;
-        myuio.uio_segflg = UIO_USERSPACE;
-        myuio.uio_rw = UIO_READ;
-        myuio.uio_space = curthread->t_vmspace;
-        
-        writtenBytes = myuio.uio_resid;
-        
-        lock_acquire(f_desc->fd_lock);
-        value = VOP_READ(f_desc->fd_vnode, &myuio);
-        lock_release(f_desc->fd_lock);
-        
-        writtenBytes = writtenBytes - myui.uio_resid;
-        
-        if(writtenBytes == 0){
-        return 0;
-        }
-        f_desc->fd_offset = f_desc->fd_offset + numBytes;
-        if(numBytes > 0){
-        retval = numBytes;
-        numBytes = 0;
-        }
-        return  numBytes;
-        
- }*/       
-//#endif
-        /* Add stuff here */
  
     default:
       kprintf("Unknown syscall %d\n", callno);
@@ -251,7 +211,7 @@ struct uio myuio;
 //        strcpy(nameOfLock, "lock_");
 //        strcat(nameOfLock, filename);
 //
-//	f_desc = fdcreate(0,flags , nameOfLock, vNode);
+//  f_desc = fdcreate(0,flags , nameOfLock, vNode);
 //
 //        int a;
 //        a = addDescriptor((curthread->t_fdManager), f_desc);
@@ -259,7 +219,7 @@ struct uio myuio;
 //        return a;
 //        
 //
-//		}
+//    }
 //}
 //#endif
 
