@@ -26,44 +26,44 @@
  * You will need to improve this implementation
  */
 
-int
-sys_write(int fdesc,userptr_t ubuf,unsigned int nbytes,int *retval)
-{
-  struct iovec iov;
-  struct uio u;
-  int res;
-
-  DEBUG(DB_SYSCALL,"Syscall: write(%d,%x,%d)\n",fdesc,(unsigned int)ubuf,nbytes);
-  
-  /* only stdout and stderr writes are currently implemented */
-  if (!((fdesc==STDOUT_FILENO)||(fdesc==STDERR_FILENO))) {
-    return EUNIMP;
-  }
-  KASSERT(curproc != NULL);
-  KASSERT(curproc->console != NULL);
-  KASSERT(curproc->p_addrspace != NULL);
-
-  /* set up a uio structure to refer to the user program's buffer (ubuf) */
-  iov.iov_ubase = ubuf;
-  iov.iov_len = nbytes;
-  u.uio_iov = &iov;
-  u.uio_iovcnt = 1;
-  u.uio_offset = 0;  /* not needed for the console */
-  u.uio_resid = nbytes;
-  u.uio_segflg = UIO_USERSPACE;
-  u.uio_rw = UIO_WRITE;
-  u.uio_space = curproc->p_addrspace;
-
-  res = VOP_WRITE(curproc->console,&u);
-  if (res) {
-    return res;
-  }
-
-  /* pass back the number of bytes actually written */
-  *retval = nbytes - u.uio_resid;
-  KASSERT(*retval >= 0);
-  return 0;
-}
+//int
+//sys_write(int fdesc,userptr_t ubuf,unsigned int nbytes,int *retval)
+//{
+//  struct iovec iov;
+//  struct uio u;
+//  int res;
+//
+//  DEBUG(DB_SYSCALL,"Syscall: write(%d,%x,%d)\n",fdesc,(unsigned int)ubuf,nbytes);
+//  
+//  /* only stdout and stderr writes are currently implemented */
+//  if (!((fdesc==STDOUT_FILENO)||(fdesc==STDERR_FILENO))) {
+//    return EUNIMP;
+//  }
+//  KASSERT(curproc != NULL);
+//  KASSERT(curproc->console != NULL);
+//  KASSERT(curproc->p_addrspace != NULL);
+//
+//  /* set up a uio structure to refer to the user program's buffer (ubuf) */
+//  iov.iov_ubase = ubuf;
+//  iov.iov_len = nbytes;
+//  u.uio_iov = &iov;
+//  u.uio_iovcnt = 1;
+//  u.uio_offset = 0;  /* not needed for the console */
+//  u.uio_resid = nbytes;
+//  u.uio_segflg = UIO_USERSPACE;
+//  u.uio_rw = UIO_WRITE;
+//  u.uio_space = curproc->p_addrspace;
+//
+//  res = VOP_WRITE(curproc->console,&u);
+//  if (res) {
+//    return res;
+//  }
+//
+//  /* pass back the number of bytes actually written */
+//  *retval = nbytes - u.uio_resid;
+//  KASSERT(*retval >= 0);
+//  return 0;
+//}
 
 int sys_open(const char* filename, int flags, unsigned int mode){
     (void) mode;
@@ -97,5 +97,82 @@ int sys_close(int num){
         return (-1)*(returnVal);
     }
     return 0;
+}
+
+int
+sys_write(int fdesc,userptr_t ubuf,unsigned int nbytes,int *retval)
+{
+    //kprintf("fejwaisfocjewioasfjeiowdasjfioewdckasjfioewdjfiodwas\n");
+    struct iovec iov;
+    struct uio u;
+    
+    struct filedescriptor *fDescriptor;
+    int result;
+    int numBytes;
+    
+    int res;
+    
+    DEBUG(DB_SYSCALL,"Syscall: write(%d,%x,%d)\n",fdesc,(unsigned int)ubuf,nbytes);
+    
+    
+    if (!((fdesc==STDOUT_FILENO)||(fdesc==STDERR_FILENO))) {
+        return EUNIMP;
+    }
+    KASSERT(curproc != NULL);
+    KASSERT(curproc->console != NULL);
+    KASSERT(curproc->p_addrspace != NULL);
+    
+    
+    if (!ubuf){
+        return(-1)*(EFAULT);
+    }
+    
+    fDescriptor = getFileDescriptor((struct fdManager *)curthread->t_fdManager, fdesc);
+    if(fDescriptor == NULL){
+        return (-1)*(EBADF);
+    }
+    if (fDescriptor->fdmode == O_RDONLY){
+        return (-1)*(EBADF);
+    }
+    
+    
+    iov.iov_ubase = ubuf;
+    iov.iov_len = nbytes;
+    u.uio_iov = &iov;
+    u.uio_iovcnt = 1;
+    u.uio_offset = 0;
+    u.uio_resid = nbytes;
+    u.uio_segflg = UIO_USERSPACE;
+    u.uio_rw = UIO_WRITE;
+    u.uio_space = curproc->p_addrspace;
+    
+    
+    numBytes = u.uio_resid;
+    
+    lock_acquire(fDescriptor->fdlock);
+    
+    result = VOP_WRITE(fDescriptor->fdvnode, &u);
+    
+    lock_release(fDescriptor->fdlock);
+    
+    numBytes -= u.uio_resid;
+    
+    if(numBytes == 0){
+        kprintf("no bytes written\n");
+        return 0;
+    }
+    
+    res = VOP_WRITE(curproc->console,&u);
+    if (res) {
+        return res;
+    }
+    
+    
+    fDescriptor->fdoff += nbytes;
+    
+    
+    *retval = nbytes - u.uio_resid;
+    KASSERT(*retval >= 0);
+    return nbytes;
 }
 
