@@ -39,6 +39,7 @@
 #include <array.h>
 #include <spinlock.h>
 #include <threadlist.h>
+#include <fdManager.h>
 
 struct cpu;
 
@@ -83,6 +84,7 @@ struct thread {
 	struct switchframe *t_context;	/* Saved register context (on stack) */
 	struct cpu *t_cpu;		/* CPU thread runs on */
 	struct proc *t_proc;		/* Process thread belongs to */
+        struct fdManager *t_fdManager;
 
 	/*
 	 * Interrupt state fields.
