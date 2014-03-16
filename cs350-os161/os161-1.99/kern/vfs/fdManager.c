@@ -1,4 +1,3 @@
-
 // fdManager.c
 
 #include <types.h>
@@ -33,18 +32,22 @@ struct fdManager * make_fdManager() {
 int initialize_fdManager(struct fdManager *manager) {
 	
 	if(manager->fdm_initialized == 1) {
+	  kprintf("initialization failed\n");
 		return -1;
 	}
 
 	struct vnode *node;
 	int error;
-	char *console_name = (char*)"con:";
+	char *console_name;
+	console_name = kstrdup("con:");
 	
 	struct filedescriptor *stdin = kmalloc(sizeof(struct filedescriptor));
 	struct filedescriptor *stdout = kmalloc(sizeof(struct filedescriptor));
 	struct filedescriptor *stderr = kmalloc(sizeof(struct filedescriptor));
 
 	//stdin
+	kprintf(console_name);
+	kprintf("\n");
 	error = vfs_open(console_name, O_RDONLY, 0, &node);
 	if (error) {
 		kprintf("STDIN open failed: %s\n", strerror(error));
@@ -55,6 +58,9 @@ int initialize_fdManager(struct fdManager *manager) {
 	stdin = fdcreate(0, O_RDONLY, (char *)("jmok_lok_stdin"), node);
 	
 	//stdout
+	console_name = kstrdup("con:");
+	kprintf(console_name);
+	kprintf("\n");
 	error = vfs_open(console_name, O_WRONLY, 0, &node);
 	if (error) {
 	        kprintf("STDOUT open failed: %s\n", strerror(error));
@@ -65,6 +71,9 @@ int initialize_fdManager(struct fdManager *manager) {
 	stdout = fdcreate(0, O_RDONLY, (char *)("jmok_lok_stdout"), node);
 	
 	//stderr
+	console_name = kstrdup("con:");
+        kprintf(console_name);
+        kprintf("\n");
 	error = vfs_open(console_name, O_WRONLY, 0, &node);
 	if (error) {
       	        kprintf("STDERR open failed: %s\n", strerror(error));
@@ -72,7 +81,7 @@ int initialize_fdManager(struct fdManager *manager) {
 		destroy(manager);
 		return -1;
 	}
-	stderr = fdcreate(0, O_RDONLY, (char *)("jmok_lok_stderr"), node);
+	stderr = fdcreate(0, O_WRONLY, (char *)("jmok_lok_stderr"), node);
 
 	if (manager->fdm_initialized == 0) {
 		manager->fdm_initialized = 1;
@@ -81,18 +90,20 @@ int initialize_fdManager(struct fdManager *manager) {
 	addDescriptor(manager, stdin);
 	addDescriptor(manager, stdout);
 	addDescriptor(manager, stderr);
-
+	kprintf("fdManager initialization succeeded\n");
 	return 0;
 }
 
 struct filedescriptor * getFileDescriptor(struct fdManager *manager, int index) {
 	
 	if(manager->fdm_initialized == 0) {
+	  kprintf("getFileDescriptor failed\n");
 		initialize_fdManager(manager);
 	}
 	
 	struct filedescriptor *descriptor;
 	if(index >= getSize(manager)) {
+	  kprintf("getFileDescriptor does not contain index");
 		return NULL;
 	}
 
@@ -127,8 +138,8 @@ int addDescriptor(struct fdManager *manager, struct filedescriptor *descriptor) 
 	}
 	else {
 	        unsigned int *error;
-		array_add(manager->fdm_descriptors, (void *) descriptor, error);
-		if(error) {
+		if (array_add(manager->fdm_descriptors, (void *) descriptor, error)) {
+		  kprintf("addDescriptor failed\n");
 			return -1;
 		}
 		mokval = manager->fdm_next;
@@ -144,6 +155,7 @@ int addDescriptor(struct fdManager *manager, struct filedescriptor *descriptor) 
 int removeDescriptor(struct fdManager * manager, int index){
 	struct filedescriptor * descriptor = getFileDescriptor(manager,index);
 	if (descriptor == NULL) {
+	  kprintf("remove Descriptor not initiailized\n");
 		return -1;
 	}
 	
@@ -161,6 +173,7 @@ struct fdManager * clone(struct fdManager *manager) {
 	clone = make_fdManager();
 
 	if(clone == NULL) {
+	  kprintf("clone failed\n");
 		return NULL;
 	}
 	

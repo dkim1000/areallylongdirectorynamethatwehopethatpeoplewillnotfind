@@ -193,7 +193,11 @@ int sys_open(const char* filename, int flags, unsigned int mode){ //(int*) (&ret
     
     case SYS_open:
     err = sys_open((char *) tf->tf_a0, (int) tf->tf_a1, tf->tf_a2);// (int *)(&retval));
-    panic(" unexpected return from sys__open");
+    if(err > 0) {
+      retval = err;
+      err = 0;
+    }
+    //panic(" unexpected return from sys__open");
     break;
     
     
@@ -301,7 +305,7 @@ int sys_open(const char* filename, int flags, unsigned int mode){
 
         int a;
         a = addDescriptor((curthread->t_fdManager), f_desc);
-       
+        kprintf("%d\n", a);
         return a;
         
 
