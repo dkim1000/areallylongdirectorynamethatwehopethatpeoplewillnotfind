@@ -1,0 +1,9 @@
+1) Copyout() copies a block of memory of size LEN bytes from the kernel space address  SRC  to the user space address USERDEST.
+2) The reason why we want to vfs_close() is because we want to ensure that while in the user space, processes do not have the ability to modify any files the kernel was working on. If a file was modified, then when we revert back to kernel mode, the kernel will be dealing with a different file which we are trying to avoid.
+3) p testbin/argtest 5 4 3
+4) Userptr_t is a pointer to a one-byte struct, so it won't mix with other pointers.
+5) We must change kill_curthread() because all it does right now is print out an error statement. We need to implement handling the exception so we can kill the process.
+6) OFF for kill_curthread, ON for syscall
+7)Copyin() copies a block of memory with length LEN from user-level address USERSRC to the kernel address DEST. Copyinstr copies a string from user-level address USERSRC to kernel address DEST. Copyinstr utilizes a function called copystr which just copies a null-terminated string from SRC to DEST.
+8)Vop_open() is used to open  a file or device and obtain a vnode.
+9) Some operations you can do on vnode include: vop_open, vop_close, vop_reclaim, vop_read, vop_write, etc. No, we do not need to create two vnodes.
