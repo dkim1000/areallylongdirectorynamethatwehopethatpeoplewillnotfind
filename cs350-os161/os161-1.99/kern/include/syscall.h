@@ -64,6 +64,8 @@ void sys__exit(int exitcode);
 int sys_open(const char *filename, int flags, unsigned int mode);// int *retval);
 int sys_close(int num);
 int sys_read(int fdesc,userptr_t ubuf,unsigned int nbytes,int *retval);
+pid_t sys_getpid(void);
+//pid_t sys_waitpid(pid_t pid, int *status, int options);
 //#endif // UW
 
 #endif /* _SYSCALL_H_ */

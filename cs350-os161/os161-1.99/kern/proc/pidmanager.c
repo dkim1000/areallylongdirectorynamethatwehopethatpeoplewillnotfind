@@ -5,6 +5,8 @@
 #include <queue.h>
 #include <kern/unistd.h>
 #include <proc.h>
+#include <lib.h>
+#include <kern/errno.h>
 
 struct pidmanager* pidcreate(){
   int val;
@@ -14,19 +16,21 @@ struct pidmanager* pidcreate(){
   int start;
   pid->pid_queue = q_create(100);
   if(pid->pid_queue == NULL){ return NULL;}
-  while(start != 100){
+ start = 0; 
+ while(start != 100){
     int *a = (int*)(kmalloc(sizeof(int)));
     if(a != NULL){
       *a = start;
       val = q_addtail(pid->pid_queue, (void*)a);
       if(val != 0){
-	return NULL;
+  return NULL;
       }
 
     }else{
 
       return NULL;
     }
+start++;
   }
   return pid;
 
@@ -46,19 +50,25 @@ struct proc* pidget(struct pidmanager *pid, pid_t pidoff){
 }
 
 pid_t pidadd(struct pidmanager *pid , struct proc* pro){
+//  panic("uh oh!");
+  KASSERT(pid!=NULL);
   pid_t* pidoff = (pid_t*)q_remhead(pid->pid_queue);
-  unsigned int *err;
+  unsigned int *err ;
   int h = array_num(pid->pid_data);
   if(*pidoff < h){
     array_set(pid->pid_data, (int)*pidoff, pro);
   }else{
     int q = array_num(pid->pid_data);
     int start = q;
-    while(start != *pidoff - 1){
+    while(start < *pidoff - 1){
       array_add(pid->pid_data, NULL, err );
       start++;
     }
+  //KASSERT(pro != NULL);
+  //
     array_add(pid->pid_data, pro, err);
+  kprintf("add done");
+  
 
   }
   return *pidoff;

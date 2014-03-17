@@ -40,7 +40,7 @@
 #include <spinlock.h>
 #include <threadlist.h>
 #include <fdManager.h>
-
+#include <types.h>
 struct cpu;
 
 /* get machine-dependent defs */
@@ -84,7 +84,8 @@ struct thread {
 	struct switchframe *t_context;	/* Saved register context (on stack) */
 	struct cpu *t_cpu;		/* CPU thread runs on */
 	struct proc *t_proc;		/* Process thread belongs to */
-        struct fdManager *t_fdManager;
+    	struct fdManager *t_fdManager; 
+	pid_t threadPid;
 
 	/*
 	 * Interrupt state fields.

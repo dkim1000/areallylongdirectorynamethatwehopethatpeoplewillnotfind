@@ -51,6 +51,7 @@
 #include <mainbus.h>
 #include <vnode.h>
 #include <fdManager.h>
+#include <pidmanager.h>
 
 #include "opt-synchprobs.h"
 
@@ -111,7 +112,7 @@ thread_checkstack(struct thread *thread)
 		KASSERT(((uint32_t*)thread->t_stack)[3] == THREAD_STACK_MAGIC);
 	}
 }
-
+struct pidmanager *pidparent = NULL;
 /*
  * Create a thread. This is used both to create a first thread
  * for each CPU and to create subsequent forked threads.
@@ -119,7 +120,7 @@ thread_checkstack(struct thread *thread)
 static
 struct thread *
 thread_create(const char *name)
-{
+{kprintf("\npop\n");
 	struct thread *thread;
 
 	DEBUGASSERT(name != NULL);
@@ -149,11 +150,20 @@ thread_create(const char *name)
 	thread->t_in_interrupt = false;
 	thread->t_curspl = IPL_HIGH;
 	thread->t_iplhigh_count = 1; /* corresponding to t_curspl */
-
+	kprintf("\n\n HERRO \n\n");
 	/* If you add to struct thread, be sure to initialize here */
 	thread->t_fdManager = make_fdManager();
+	if(pidparent == NULL){
+		pidparent = pidcreate();
+		kprintf("initialized!\n\n");
+	} 
+//	KASSERT(thread->t_proc == NULL);
+	thread->threadPid = pidadd(pidparent, thread->t_proc);
+	
+
 	return thread;
-}
+	}
+
 
 /*
  * Create a CPU structure. This is used for the bootup CPU and
@@ -258,7 +268,8 @@ thread_destroy(struct thread *thread)
 
 	/* sheer paranoia */
 	thread->t_wchan_name = "DESTROYED";
-
+	//added 7:53
+	pidremove(pidparent, thread->threadPid);
 	kfree(thread->t_name);
 	kfree(thread);
 }
@@ -338,6 +349,7 @@ thread_shutdown(void)
 	 * We should probably wait for them to stop and shut them off
 	 * on the system board.
 	 */
+	 //pidclean(pidparent);
 	ipi_broadcast(IPI_OFFLINE);
 }
 
@@ -350,8 +362,9 @@ thread_bootstrap(void)
 	struct cpu *bootcpu;
 	struct thread *bootthread;
 
-	cpuarray_init(&allcpus);
 
+	cpuarray_init(&allcpus);
+	kprintf("hello");
 	/*
 	 * Create the cpu structure for the bootup CPU, the one we're
 	 * currently running on. Assume the hardware number is 0; that
@@ -363,13 +376,19 @@ thread_bootstrap(void)
 	bootcpu = cpu_create(0);
 	bootthread = bootcpu->c_curthread;
 
+
+
+
+
 	/*
 	 * Initializing curcpu and curthread is machine-dependent
 	 * because either of curcpu and curthread might be defined in
 	 * terms of the other.
 	 */
 	INIT_CURCPU(bootcpu, bootthread);
-
+//	if(pidparent == NULL){
+//		panic ("messed up with making PID");
+//	}
 	/*
 	 * Now make sure both t_cpu and c_curthread are set. This
 	 * might be partially redundant with INIT_CURCPU depending on
@@ -727,6 +746,7 @@ void
 thread_startup(void (*entrypoint)(void *data1, unsigned long data2),
 	       void *data1, unsigned long data2)
 {
+kprintf("\n\nasdfdsfdsf\n\n");
 	struct thread *cur;
 
 	cur = curthread;
@@ -793,6 +813,10 @@ thread_exit(void)
 	proc_remthread(cur);
 #endif // UW
 
+	destroy( curthread->t_fdManager);
+	pid_t pid1 = curthread->threadPid;
+	pidremove(pidparent, pid1);
+	
 	/* Make sure we *are* detached (move this only if you're sure!) */
 	KASSERT(cur->t_proc == NULL);
 

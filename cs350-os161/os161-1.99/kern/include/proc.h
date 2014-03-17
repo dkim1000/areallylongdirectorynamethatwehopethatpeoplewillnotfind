@@ -52,13 +52,15 @@ struct proc {
 	char *p_name;			/* Name of this process */
 	struct spinlock p_lock;		/* Lock for this structure */
 	struct threadarray p_threads;	/* Threads in this process */
-
+	int curstatus;
+	int exiting;
 	/* VM */
 	struct addrspace *p_addrspace;	/* virtual address space */
 
 	/* VFS */
 	struct vnode *p_cwd;		/* current working directory */
-
+	struct cv *cv_proc;
+	struct lock *mutex_proc;
 #ifdef UW
   /* a vnode to refer to the console device */
   /* this is a quick-and-dirty way to get console writes working */

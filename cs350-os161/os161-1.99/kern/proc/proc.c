@@ -79,7 +79,7 @@ struct proc *
 proc_create(const char *name)
 {
 	struct proc *proc;
-
+	
 	proc = kmalloc(sizeof(*proc));
 	if (proc == NULL) {
 		return NULL;
@@ -89,10 +89,13 @@ proc_create(const char *name)
 		kfree(proc);
 		return NULL;
 	}
-
+	proc->curstatus = 1;
+	proc->exiting = 0;
+	proc->cv_proc = cv_create("cv_proc");
+	proc->mutex_proc = lock_create("mutex_proc");
 	threadarray_init(&proc->p_threads);
 	spinlock_init(&proc->p_lock);
-
+	
 	/* VM fields */
 	proc->p_addrspace = NULL;
 
@@ -193,6 +196,7 @@ proc_destroy(struct proc *proc)
 void
 proc_bootstrap(void)
 {
+kprintf("bootstrap proc ran!\n\n");
   kproc = proc_create("[kernel]");
   if (kproc == NULL) {
     panic("proc_create for kproc failed\n");

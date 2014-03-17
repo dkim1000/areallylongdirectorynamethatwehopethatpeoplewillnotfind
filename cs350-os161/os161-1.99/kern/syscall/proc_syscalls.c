@@ -7,10 +7,12 @@
 #include <proc.h>
 #include <thread.h>
 #include <addrspace.h>
-
+#include <synch.h>
   /* this implementation of sys__exit does not do anything with the exit code */
   /* this needs to be fixed to get exit() and waitpid() working properly */
-
+pid_t sys_getpid(void){
+return curthread->threadPid;
+}
 void sys__exit(int exitcode) {
 
   struct addrspace *as;
@@ -20,6 +22,15 @@ void sys__exit(int exitcode) {
   (void)exitcode;
 
   DEBUG(DB_SYSCALL,"Syscall: _exit(%d)\n",exitcode);
+  
+  lock_acquire(p->mutex_proc);
+  p->curstatus = 0;
+  p->exiting = exitcode;
+  cv_signal(p->cv_proc, p->mutex_proc);
+  lock_release(p->mutex_proc);
+  
+  //lock_acquire(p->p_lock);
+
 
   KASSERT(curproc->p_addrspace != NULL);
   as_deactivate();
@@ -45,3 +56,25 @@ void sys__exit(int exitcode) {
   /* thread_exit() does not return, so we should never get here */
   panic("return from thread_exit in sys_exit\n");
 }
+/*
+pid_t sys_waitpid (pid_t pid, int * status, int options){
+  if (options > 0){
+    return EINVAL;
+  }
+  if (status == NULL){
+    return EFAULT;
+  }
+
+  struct proc * childProc = pidget(,pid
+
+
+
+}
+
+*/
+
+
+
+
+
+
