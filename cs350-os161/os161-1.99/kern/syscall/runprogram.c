@@ -114,43 +114,26 @@ runprogram(int argc, char *args[])
 	
 	int i =0;
 	int sizeOfFrame = 8;
-	for(; i < argc; i++){
+	while(i < argc){
 		sizeOfFrame =5  + sizeOfFrame + strlen(args[i]);
-	//	argv[i] = (userptr_t) stackptr;
-		
+		i++;		
 	}
+
 	stackptr = stackptr - sizeOfFrame - 4;
-	for(stackptr = stackptr; stackptr % 8 > 0; stackptr--){
-	//Chris, use a while loop here
-	
-	}
+	while (stackptr % 8 > 0)
+		stackptr--;
 		
 	int position = (int)(4 + ((argc + 1) * 4) + stackptr);
-       // copyout((void *) & argc, (userptr_t) stackptr , (size_t) 4);
-	
-//	copyout(&argv[0], (userptr_t)stackptr, sizeof(userptr_t));
-//	 copyoutstr(args[0], (userptr_t) position, (size_t)(strlen(args[0])), NULL);
-	
+
 	 copyout((void *) &position, (userptr_t)(4 + stackptr + (-1 * 4)), (size_t) 4);
-        copyoutstr(args[-1], (userptr_t) position, (size_t)(strlen(args[-1])), NULL);
-        position = position + strlen(args[-1]) + 1;
+     copyoutstr(args[-1], (userptr_t) position, (size_t)(strlen(args[-1])), NULL);
+     position = position + strlen(args[-1]) + 1;
 
 	for(i = 0; i < argc; i++){
-	copyout((void *) &position, (userptr_t)(0 + stackptr + (i * 4)), (size_t) 4);
-	copyoutstr(args[i], (userptr_t) position, (size_t)(strlen(args[i])), NULL);
-	position = position + strlen(args[i]) + 1;
-	
-//	copyout(&argv[i+1], (userptr_t)stackptr, sizeof(userptr_t));
+		copyout((void *) &position, (userptr_t)(0 + stackptr + (i * 4)), (size_t) 4);
+		copyoutstr(args[i], (userptr_t) position, (size_t)(strlen(args[i])), NULL);
+		position = position + strlen(args[i]) + 1;
 	}
-
-//	int *g = NULL;
-
-//	copyout((void *) &g, (userptr_t)( 0 + (4 * i) + stackptr), (size_t) 4);
-//
-
-	
-
-
 
 	//end
 	
