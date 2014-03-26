@@ -1,0 +1,7 @@
+Script started on Wed Jan  8 14:40:10 2014
+dhdkim@ubuntu1204-006:~/cs350-os161/os161-1.99/kern/compile/ASST0$ cd ~/cs350-os 161/os161-1.99/kern/startup
+dhdkim@ubuntu1204-006:~/cs350-os161/os161-1.99/kern/startup$ cvs add hello.c
+cvs add: `hello.c' already exists, with version number 1.1
+dhdkim@ubuntu1204-006:~/cs350-os161/os161-1.99/kern/startup$ exit
+
+Script done on Wed Jan  8 14:40:50 2014

@@ -1,0 +1,10 @@
+Script started on Wed Jan  8 14:55:04 2014
+dhdkim@ubuntu1204-006:~/cs350-os161/os161-1.99/kern/startup$ cd ~/cs350-os161/os 161-1.99/kern/startup
+dhdkim@ubuntu1204-006:~/cs350-os161/os161-1.99/kern/startup$ cvs add hello.c
+cvs add: Re-adding file `hello.c' after dead revision 1.2.
+cvs add: use `cvs commit' to add this file permanently
+dhdkim@ubuntu1204-006:~/cs350-os161/os161-1.99/kern/startup$ cvs diff -c main.c
+cvs diff: I know nothing about main.c
+dhdkim@ubuntu1204-006:~/cs350-os161/os161-1.99/kern/startup$ exit
+
+Script done on Wed Jan  8 14:56:42 2014

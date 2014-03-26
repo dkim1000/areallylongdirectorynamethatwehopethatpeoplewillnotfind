@@ -1,0 +1,47 @@
+mips/conf/conf.arch:49:machine mips file    arch/mips/thread/cpu.c	# CPU control.
+mips/include/current.h:50: * the MMU on each CPU to map that CPU's cpu structure to a fixed
+mips/include/current.h:51: * virtual address that's the same on all CPUs. Then curcpu can be a
+mips/include/current.h:54: * CPUs.) Another approach is to reserve a register to hold curthread.
+mips/include/current.h:59: * kernel at trap time. (On most CPUs there's a canonical way to find
+mips/include/current.h:65: *   to hold the CPU number.
+mips/include/current.h:81:#define __NEED_CURCPU
+mips/include/current.h:84:#define INIT_CURCPU(cpu, thread) (curthread = (thread), curcpu = (cpu))
+mips/include/specialreg.h:77:#define CCA_COPN   0x30000000   /* Coprocessor number for EX_CPU */
+mips/include/specialreg.h:100: * However, in OS/161 we use CTX_PTBASE to hold the current CPU
+mips/include/trapframe.h:94:#define EX_CPU    11   /* Coprocessor unusable */
+mips/locore/exception-mips1.S:111:   mfc0 k1, c0_context		/* we keep the CPU number here */
+mips/locore/exception-mips1.S:112:   srl k1, k1, CTX_PTBASESHIFT	/* shift it to get just the CPU number */
+mips/locore/exception-mips1.S:242:   mfc0 k1, c0_context		/* we keep the CPU number here */
+mips/locore/exception-mips1.S:243:   srl k1, k1, CTX_PTBASESHIFT	/* shift it to get just the CPU number */
+mips/locore/trap.c:103:	    case EX_CPU:
+mips/locore/trap.c:167:		 * when the CPU finishes idling it flips interrupts on
+mips/thread/cpu.c:31: * CPU control functions.
+mips/thread/cpu.c:47: * The MIPS lacks a good way to find the current CPU, current thread,
+mips/thread/cpu.c:49: * with this, we store the CPU number (our number, not the hardware
+mips/thread/cpu.c:55: * These arrays are also used to start up new CPUs, for roughly the
+mips/thread/cpu.c:59:vaddr_t cpustacks[MAXCPUS];
+mips/thread/cpu.c:60:vaddr_t cputhreads[MAXCPUS];
+mips/thread/cpu.c:72:	KASSERT(c->c_number < MAXCPUS);
+mips/thread/cpu.c:96: * Return the type name of the currently running CPU.
+mips/thread/cpu.c:227: * Halt the CPU permanently.
+mips/vm/dumbvm.c:189:	/* Disable interrupts on this CPU while frobbing the TLB. */
+mips/vm/dumbvm.c:249:	/* Disable interrupts on this CPU while frobbing the TLB. */
+sys161/dev/lamebus_machdep.c:46: * CPU frequency used by the on-chip timer.
+sys161/dev/lamebus_machdep.c:48: * Note that we really ought to measure the CPU frequency against the
+sys161/dev/lamebus_machdep.c:51:#define CPU_FREQUENCY 25000000 /* 25 MHz */
+sys161/dev/lamebus_machdep.c:79: * initialized, and initialized before we start other threads or CPUs.
+sys161/dev/lamebus_machdep.c:92:	/* Probe CPUs (should these be done as device attachments instead?) */
+sys161/dev/lamebus_machdep.c:116:	mips_timer_set(CPU_FREQUENCY / HZ);
+sys161/dev/lamebus_machdep.c:120: * Start all secondary CPUs.
+sys161/dev/lamebus_machdep.c:272:		mips_timer_set(CPU_FREQUENCY / HZ);
+sys161/include/maxcpus.h:30:#ifndef _SYS161_MAXCPUS_H_
+sys161/include/maxcpus.h:31:#define _SYS161_MAXCPUS_H_
+sys161/include/maxcpus.h:37: * nothing about the processor that determines how many CPUs can
+sys161/include/maxcpus.h:42:#define MAXCPUS 32
+sys161/include/maxcpus.h:44:#endif /* _SYS161_MAXCPUS_H_ */
+sys161/startup/start.S:194:    * Load the CPU number into the PTBASE field of the CONTEXT
+sys161/startup/start.S:199:    * Because the boot CPU is CPU 0, we can just send 0.
+sys161/startup/start.S:236:    * CPUs started after the boot CPU come here.
+sys161/startup/start.S:246:    * controller per-CPU space. This means we can, with a bit of
+sys161/startup/start.S:300:    * Load the CPU number into the PTBASE field of the CONTEXT
+sys161/startup/start.S:309:    * This should be set to CPU_FREQUENCY/HZ, but we don't have either
