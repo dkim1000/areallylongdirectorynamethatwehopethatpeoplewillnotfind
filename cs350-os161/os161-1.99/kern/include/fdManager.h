@@ -11,12 +11,13 @@ struct fdManager
 struct fdManager * make_fdManager(void);
 
 int initialize_fdManager(struct fdManager * manager);
-struct filedescriptor * getFileDescriptor(struct fdManager *manager, int index);
+struct filedescriptor * getFileDescriptor(int index,struct fdManager *manager);
 int addDescriptor(struct fdManager *manager, struct filedescriptor *descriptor);
-int removeDescriptor(struct fdManager * manager, int index);
+int removeDescriptor(int index,struct fdManager * manager);
 struct fdManager * clone(struct fdManager *manager);
 int getSize(struct fdManager * manager);
 void destroy(struct fdManager * manager);
 void print(struct fdManager * manager);
 
 #endif /* _FDMANAGER_H_ */
+
