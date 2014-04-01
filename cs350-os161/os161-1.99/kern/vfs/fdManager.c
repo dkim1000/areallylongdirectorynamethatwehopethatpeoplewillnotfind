@@ -46,58 +46,58 @@ int initialize_fdManager(struct fdManager *manager) {
 	struct filedescriptor *stderr = kmalloc(sizeof(struct filedescriptor));
 
 	//stdin
-	kprintf(console_name);
-	kprintf("\n");
 	error = vfs_open(console_name, O_RDONLY, 0, &node);
 	if (error) {
 		kprintf("STDIN open failed: %s\n", strerror(error));
 		vfs_close(node);
 		destroy(manager);
-		return -1;
+		int a;
+		a = -1;
+		return a;
 	}
 	stdin = fdcreate(0, O_RDONLY, (char *)("jmok_lok_stdin"), node);
 	
 	//stdout
 	console_name = kstrdup("con:");
-	kprintf(console_name);
-	kprintf("\n");
 	error = vfs_open(console_name, O_WRONLY, 0, &node);
 	if (error) {
 	        kprintf("STDOUT open failed: %s\n", strerror(error));
 		vfs_close(node);
 		destroy(manager);
-		return -1;
+		int b;
+		b = -1;
+		return b;
 	}
 	stdout = fdcreate(0, O_RDONLY, (char *)("jmok_lok_stdout"), node);
 	
 	//stderr
 	console_name = kstrdup("con:");
-        kprintf(console_name);
-        kprintf("\n");
 	error = vfs_open(console_name, O_WRONLY, 0, &node);
 	if (error) {
       	        kprintf("STDERR open failed: %s\n", strerror(error));
 		vfs_close(node);
 		destroy(manager);
-		return -1;
+		int c;
+		c = -1;
+		return c;
 	}
 	stderr = fdcreate(0, O_WRONLY, (char *)("jmok_lok_stderr"), node);
 
-	if (manager->fdm_initialized == 0) {
+	if (!manager->fdm_initialized) {
 		manager->fdm_initialized = 1;
 	}
 
 	addDescriptor(manager, stdin);
 	addDescriptor(manager, stdout);
 	addDescriptor(manager, stderr);
-	kprintf("fdManager initialization succeeded\n");
+	//kprintf("fdManager initialization succeeded\n");
 	return 0;
 }
 
-struct filedescriptor * getFileDescriptor(struct fdManager *manager, int index) {
+struct filedescriptor * getFileDescriptor(int index,struct fdManager *manager) {
 	
-	if(manager->fdm_initialized == 0) {
-	  kprintf("getFileDescriptor failed\n");
+	if(!manager->fdm_initialized) {
+	 // kprintf("getFileDescriptor failed\n");
 		initialize_fdManager(manager);
 	}
 	
@@ -114,29 +114,14 @@ struct filedescriptor * getFileDescriptor(struct fdManager *manager, int index) 
 
 int addDescriptor(struct fdManager *manager, struct filedescriptor *descriptor) {
 	
-        if(manager->fdm_initialized == 0) {
+        if(!manager->fdm_initialized) {
 	  initialize_fdManager(manager);
         }
 
 	int mokval;
 
-	if(manager->fdm_next < getSize(manager)) {
-		array_set(manager->fdm_descriptors, manager->fdm_next, (void *) descriptor);
-		mokval = manager->fdm_next;
-		int size = getSize(manager);
-		
-		int i;
-		for(i = manager->fdm_next; i < size; i++) {
-			if(!getFileDescriptor(manager, i)) {
-				manager->fdm_next = i;
-				break;
-			}
-			manager->fdm_next = i + 1;
-		}
-		
-		descriptor->fdopen = descriptor->fdopen + 1;
-	}
-	else {
+	if(manager->fdm_next >= getSize(manager)) {
+
 	        unsigned int *error;
 		if (array_add(manager->fdm_descriptors, (void *) descriptor, error)) {
 		  kprintf("addDescriptor failed\n");
@@ -146,14 +131,32 @@ int addDescriptor(struct fdManager *manager, struct filedescriptor *descriptor) 
 		manager->fdm_next = getSize(manager);
 
 		descriptor->fdopen = descriptor->fdopen + 1;
+
+	}
+	else {
+		array_set(manager->fdm_descriptors, manager->fdm_next, (void *) descriptor);
+		mokval = manager->fdm_next;
+		int size = getSize(manager);
+		
+		int i = manager->fdm_next;
+		while(i < size) {
+			if(!getFileDescriptor(i, manager)) {
+				manager->fdm_next = i;
+				break;
+			}
+			manager->fdm_next = i + 1;
+			i++;
+		}
+		
+		descriptor->fdopen = descriptor->fdopen + 1;
 	}
 	
 	return mokval;
 
 }
 
-int removeDescriptor(struct fdManager * manager, int index){
-	struct filedescriptor * descriptor = getFileDescriptor(manager,index);
+int removeDescriptor(int index, struct fdManager * manager){
+	struct filedescriptor * descriptor = getFileDescriptor(index, manager);
 	if (descriptor == NULL) {
 	  kprintf("remove Descriptor not initiailized\n");
 		return -1;
@@ -181,10 +184,11 @@ struct fdManager * clone(struct fdManager *manager) {
 	size = getSize(manager);
 	
 	clone->fdm_initialized = 1;
-	
-	for(int i = 0; i < size; i++) {
+	int i = 0;
+	while(i<size){
 		clone->fdm_next = i;
-		addDescriptor(clone, getFileDescriptor(manager, i));
+		addDescriptor(clone, getFileDescriptor(i, manager));
+		i++;
 	}
 	clone->fdm_next = manager->fdm_next;
 
@@ -196,27 +200,21 @@ int getSize(struct fdManager * manager){
 } 
 
 void destroy(struct fdManager * manager){
-	int i;
+	int i=0;
 	int size = getSize(manager);
-	
-	for(i = 0 ; i < size; i++){
-		removeDescriptor(manager,i);
+//	kprintf("\nsize: %d\n",size);
+	while(i<size){
+		removeDescriptor(i, manager);
+		if(array_get(manager->fdm_descriptors,i)==NULL){
+			//kprintf ("\nisNull: %d\n",i);
+		}
+		i++;
 	}
+//int x=array_num(manager->fdm_descriptors);
+//kprintf("\nx: %d\n",x);
 
-	array_destroy(manager->fdm_descriptors);
+//	array_destroy(manager->fdm_descriptors);
+kfree(manager->fdm_descriptors);
 	kfree(manager);
 }
 
-/*
-void print(struct fdManager * manager){
-	int i;
-	kprintf("pid %d:\t", (int)curthread->t_pid);
-	for(i = 0 ; i < getSize(manager); i++){
-		if (getDescriptor(manager,i) == NULL)
-			kprintf("X");
-		else
-			kprintf("%d",i);
-	}
-	kprintf("\n");
-}
-*/
